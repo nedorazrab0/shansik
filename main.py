@@ -45,6 +45,30 @@ async def pk(ctx, target_points):
     result = str(order, "utf-8")
     await reply(ctx, result)
 
+@bot.command(help="")
+async def lb(ctx, page, wl="nowl", reg="en"):
+    if wl == "wl":
+        url = "https://api.sekai.best/event/live_chapter_rankings?region=" + reg
+    elif wl == "nowl":
+        url = "https://api.sekai.best/event/live?region=" + reg
+
+    if int(page) == 1:
+        tops = range(1, 50)
+    else:
+        tops = range(50, 100)
+
+    raw = await sget(url)
+    json = await loads(raw)
+
+    leaderboard = ""
+    for top in tops:
+        rank = json["data"]["eventRankings"][top]["rank"]
+        name = json["data"]["eventRankings"][top]["userName"]
+        score = json["data"]["eventRankings"][top]["score"]
+        leaderboard += str(rank) + '  "' + name[:20] + '"  ' + str(score) + "\n"
+    result = "```\n" + leaderboard + "```"
+    await reply(ctx, result)
+
 @bot.command(help="send random line of anti anti you")
 async def au(ctx):
     line = check_output(["/usr/bin/python3", "./randomantiyou"])
@@ -139,7 +163,7 @@ async def wk(ctx):
     else:
         url = wikiurl + opts
     page = await sget(url)
-    json = loads(page)
+    json = await loads(page)
     id = str(*json["query"]["pages"])
     text = json["query"]["pages"][id]["extract"]
 

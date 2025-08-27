@@ -37,7 +37,8 @@ async def rule(ctx):
         result = "you are lucky"
     await reply(ctx, result)
 
-@bot.command(help="get shows order for specified target points")
+@bot.command(help="get shows order for specified target points, all 4* 0MR"
+                  + " (50% EB) and all 1* 5MR (2% EB), play ebi on easy")
 async def pk(ctx, target_points):
     order = check_output(["/usr/bin/python3", "./spc", "-p", target_points])
     result = str(order, "utf-8")
@@ -162,7 +163,7 @@ async def rp(ctx, repeats=79, text="z"):
 async def rns(ctx):
     rand = "".join(choice(ascii_letters + digits + punctuation)
                    for i in range(20))
-    result = "`" + rand + "`"
+    result = "```\n" + rand + "\n```"
     await reply(ctx, result)
 
 @bot.command(help="send a random num, start stop")

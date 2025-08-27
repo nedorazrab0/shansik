@@ -58,7 +58,7 @@ async def lb(ctx, page, wl="nowl", reg="en"):
         tops = range(50, 100)
 
     raw = await sget(url)
-    json = await loads(raw)
+    json = loads(raw)
 
     leaderboard = ""
     for top in tops:
@@ -163,7 +163,7 @@ async def wk(ctx):
     else:
         url = wikiurl + opts
     page = await sget(url)
-    json = await loads(page)
+    json = loads(page)
     id = str(*json["query"]["pages"])
     text = json["query"]["pages"][id]["extract"]
 

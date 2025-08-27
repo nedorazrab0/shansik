@@ -45,10 +45,10 @@ async def pk(ctx, target_points):
     result = str(order, "utf-8")
     await reply(ctx, result)
 
-@bot.command(help="get leaderboard, 1 page = 50 tiers  (e.g. 2 nowl en")
+@bot.command(help="get leaderboard, 1 page = 50 tiers  (e.g. 2 nowl kr)")
 async def lb(ctx, page, wl="nowl", reg="en"):
     if wl == "wl":
-        url = "https://api.sekai.best/event/live_chapter_rankings?region=" + reg
+        url = "https://api.sekai.best/event/live_latest_chapter?region=" + reg
     elif wl == "nowl":
         url = "https://api.sekai.best/event/live?region=" + reg
 

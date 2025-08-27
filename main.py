@@ -3,6 +3,7 @@
 # shansik bot
 
 from string import ascii_letters, digits, punctuation
+from urllib.parse import quote_plus
 from subprocess import check_output
 from random import randint, choice
 from zoneinfo import ZoneInfo
@@ -195,7 +196,7 @@ async def white(ctx):
 async def qr(ctx, text):
     url = ("https://api.qrserver.com/v1/create-qr-code/?size=1000x1000"
            + "&format=png&data=" + text)
-    result = url
+    result = await quote_plus(url, safe="")
     await reply(ctx, result)
 
 @bot.command(help="send a random safebooru img")

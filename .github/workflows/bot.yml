@@ -1,0 +1,26 @@
+name: bot
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "39 * * * *"
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: install depends
+        run: |
+          sudo apt-get update
+          sudo apt-get install python3 python3-pip
+          python3 -m pip install -U 'nextcord[speed]' gpytranslate
+
+      - name: run bot
+        run: python3 ./main.py
+        env:
+          TOKEN: ${{ secrets.TOKEN }}

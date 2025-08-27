@@ -38,14 +38,14 @@ async def rule(ctx):
         result = "you are lucky"
     await reply(ctx, result)
 
-@bot.command(help="get shows order for specified target points, all 4* 0MR"
-                  + " (50% EB) and all 1* 5MR (2% EB), play ebi on easy")
+@bot.command(help="get shows order for target points, teams all 4* 0MR"
+                  + " (50% EB) and all 1* 5MR (2% EB)")
 async def pk(ctx, target_points):
     order = check_output(["/usr/bin/python3", "./spc", "-p", target_points])
     result = str(order, "utf-8")
     await reply(ctx, result)
 
-@bot.command(help="")
+@bot.command(help="get leaderboard, 1 page = 50 tiers  (e.g. 2 nowl en")
 async def lb(ctx, page, wl="nowl", reg="en"):
     if wl == "wl":
         url = "https://api.sekai.best/event/live_chapter_rankings?region=" + reg
@@ -53,7 +53,7 @@ async def lb(ctx, page, wl="nowl", reg="en"):
         url = "https://api.sekai.best/event/live?region=" + reg
 
     if int(page) == 1:
-        tops = range(1, 50)
+        tops = range(2, 51)
     else:
         tops = range(50, 100)
 

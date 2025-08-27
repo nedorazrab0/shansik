@@ -103,6 +103,14 @@ async def tz(ctx, source_zone, target_zone, year, month, day, h):
               + str(d.hour))
     await reply(ctx, result)
 
+@bot.command(help="convert sizeunits (e.g. 10 gb mb)")
+async def sz(ctx, num, sizeunit1, sizeunit2):
+    sizeunits = {b = 8, kb = 10**3, mb = 10**4, gb = 10**5, tb = 10**6,
+                 kib = 2**10, mib = 2**20, gib = 2**30, tib = 2**40}
+    converted = (num*sizeunits[sizeunit1])/sizeunits[sizeunit2]
+    result = round(converted, 1)
+    await reply(ctx, result)
+
 @bot.command(help="pick a random item of specified ones")
 async def pick(ctx, *items):
     result = choice(items)

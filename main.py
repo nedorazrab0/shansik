@@ -180,6 +180,26 @@ async def rn(ctx, start=1, stop=100):
     result = randint(int(start), int(stop))
     await reply(ctx, result)
 
+@bot.command(help="jason pic")
+async def jason(ctx):
+    result = "<:jason:1410289021263020144>"
+    await reply(ctx, result)
+
+@bot.command(help="taph pic")
+async def taph(ctx):
+    result = "<:taph:1410288947619303484>"
+    await reply(ctx, result)
+
+@bot.command(help="saki pic")
+async def saki(ctx):
+    result = "<:saki:1410288878828388412>"
+    await reply(ctx, result)
+
+@bot.command(help="teehee pic")
+async def teehee(ctx):
+    result = "<:teehee:1410288750742995078>"
+    await reply(ctx, result)
+
 @bot.command(help="patpat pic")
 async def patpat(ctx):
     result = "<a:patpat:1410053978921762867>"

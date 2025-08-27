@@ -53,9 +53,9 @@ async def lb(ctx, page, wl="nowl", reg="en"):
         url = "https://api.sekai.best/event/live?region=" + reg
 
     if int(page) == 1:
-        tops = range(2, 51)
+        tops = range(0, 51)
     else:
-        tops = range(50, 100)
+        tops = range(50, 101)
 
     raw = await sget(url)
     json = loads(raw)

@@ -203,8 +203,8 @@ async def white(ctx):
 @bot.command(help="generate a qr code from text")
 async def qr(ctx, text):
     url = ("https://api.qrserver.com/v1/create-qr-code/?size=1000x1000"
-           + "&format=png&data=" + text)
-    result = quote_plus(url, safe="")
+           + "&format=png&data=" + quote_plus(text, safe=""))
+    result = url
     await reply(ctx, result)
 
 @bot.command(help="send a random safebooru img")

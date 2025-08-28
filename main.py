@@ -55,7 +55,7 @@ async def lb(ctx, page, wl="nowl", reg="en"):
     if int(page) == 1:
         tops = range(0, 51)
     else:
-        tops = range(50, 101)
+        tops = range(50, 103)
 
     raw = await sget(url)
     json = loads(raw)
@@ -98,12 +98,16 @@ async def rgb(ctx, rawhex):
 @bot.command(help="change room code")
 async def rm(ctx, code):
     ch = ctx.channel
-    if match(".[0-9].*-[0-9|x][0-9|x][0-9|x][0-9|x][0-9|x]", ch.name):
+    regex = ".[0-9].*-[0-9|x][0-9|x][0-9|x][0-9|x][0-9|x]"
+    if match(regex, ch.name):
         matchname = match(".[0-9]-", ch.name)
         rmname = matchname[0]
         new_name = rmname + code
-        await ch.edit(name=new_name)
-        result = "room code changed"
+        if match(regex, new_name):
+            await ch.edit(name=new_name)
+            result = "room code changed"
+        else:
+            result = "invalid room code"
     else:
         result = "the channel name must be like this luka22-12345"
     await reply(ctx, result)

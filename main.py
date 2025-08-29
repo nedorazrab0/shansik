@@ -59,12 +59,14 @@ async def lb(ctx, page, wl="nowl", reg="en"):
 
     raw = await sget(url)
     json = loads(raw)
+    ranks = json["data"]["eventRankings"]
 
     leaderboard = ""
     for top in tops:
-        rank = json["data"]["eventRankings"][top]["rank"]
-        name = json["data"]["eventRankings"][top]["userName"]
-        score = json["data"]["eventRankings"][top]["score"]
+        user = ranks[top]
+        rank = user["rank"]
+        name = user["userName"]
+        score = user["score"]
         leaderboard += str(rank) + '  "' + name[:20] + '"  ' + str(score) + "\n"
     result = "```\n" + leaderboard + "```"
     await reply(ctx, result)

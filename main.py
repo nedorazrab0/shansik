@@ -61,13 +61,7 @@ async def lb(ctx, page, wl="nowl", reg="en"):
     json = loads(raw)
     ranks = json["data"]["eventRankings"]
 
-    leaderboard = ""
-    for top in tops:
-        user = ranks[top]
-        rank = user["rank"]
-        name = user["userName"]
-        score = user["score"]
-        leaderboard += str(rank) + '  "' + name[:20] + '"  ' + str(score) + "\n"
+    leaderboard = "".join(f"{ranks[top]["rank"]}  '{ranks[top]["userName"]}'  {ranks[top]["score"]}\n")
     result = "```\n" + leaderboard + "```"
     await reply(ctx, result)
 

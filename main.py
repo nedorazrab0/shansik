@@ -111,7 +111,9 @@ async def rm(ctx, code):
             await ch.edit(name=new_name)
             result = "room code changed"
         else:
-            result = "invalid room code"
+            new_name = rmname + "xxxxx"
+            await ch.edit(name=new_name)
+            result = "room closed, lets go gambling"
     else:
         result = "the channel name must be like this luka22-12345"
     await reply(ctx, result)

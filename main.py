@@ -63,14 +63,15 @@ async def lb(ctx, page, type="nowl", reg="en"):
     result = "```\n" + leaderboard + "```"
     await reply(ctx, result)
 
-@bot.command(help="check is sekai.best api alive")
+@bot.command(help="check is api.sekai.best alive")
 async def ckapi(ctx):
     url = "https://api.sekai.best/status"
+    statusurl = "https://status.sekai.best/history/api"
     raw = sget(url)
     if raw is None:
-        result = f"[sekai.best api]({url}) is alive"
+        result = f"[api.sekai.best]({statusurl}) is alive"
     else:
-        result = f"[sekai.best api]({url}) umer"
+        result = f"[api.sekai.best]({statusurl}) umer"
     await reply(ctx, result)
 
 @bot.command(help="send random line of anti anti you")

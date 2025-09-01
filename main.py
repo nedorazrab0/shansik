@@ -46,23 +46,32 @@ async def pk(ctx, target_points):
     await reply(ctx, result)
 
 @bot.command(help="get leaderboard, 1 page = 50 tiers  (e.g. 2 nowl kr)")
-async def lb(ctx, page, wl="nowl", reg="en"):
-    if wl == "wl":
+async def lb(ctx, page, type="nowl", reg="en"):
+    if type == "wl":
         url = "https://api.sekai.best/event/live_latest_chapter?region=" + reg
-    elif wl == "nowl":
+    elif type == "nowl":
         url = "https://api.sekai.best/event/live?region=" + reg
-
     if int(page) == 1:
         tops = range(0, 51)
     else:
         tops = range(50, 103)
-
     raw = await sget(url)
     json = loads(raw)
     data = json["data"]["eventRankings"]
     leaderboard = "".join(f"{data[top]['rank']}  {data[top]['userName']}"
                           + f"  {data[top]['score']}\n" for top in tops)
     result = "```\n" + leaderboard + "```"
+    await reply(ctx, result)
+
+@bot.command(help="check is sekai.best api alive")
+async def ckapi(ctx):
+    url = "https://api.sekai.best/status"
+    raw = sget(url)
+    json = loads(raw)
+    if json[status] == "pass":
+        result = f"[sekai.best api]({url}) is alive"
+    else:
+        result = f"[sekai.best api]({url}) umer"
     await reply(ctx, result)
 
 @bot.command(help="send random line of anti anti you")

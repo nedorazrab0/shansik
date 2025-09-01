@@ -67,8 +67,7 @@ async def lb(ctx, page, type="nowl", reg="en"):
 async def ckapi(ctx):
     url = "https://api.sekai.best/status"
     raw = sget(url)
-    json = loads(raw)
-    if json[status] == "pass":
+    if raw is None "pass":
         result = f"[sekai.best api]({url}) is alive"
     else:
         result = f"[sekai.best api]({url}) umer"

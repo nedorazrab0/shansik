@@ -64,14 +64,14 @@ async def lb(ctx, page, type="nowl", reg="en"):
     await reply(ctx, result)
 
 @bot.command(help="check is api.sekai.best alive")
-async def ckapi(ctx):
+async def lw(ctx):
     url = "https://api.sekai.best/status"
     statusurl = "https://status.sekai.best/history/api"
     raw = sget(url)
     if raw is None:
-        result = f"[api.sekai.best]({statusurl}) is alive"
-    else:
         result = f"[api.sekai.best]({statusurl}) umer"
+    else:
+        result = f"[api.sekai.best]({statusurl}) is alive"
     await reply(ctx, result)
 
 @bot.command(help="send random line of anti anti you")

@@ -55,7 +55,7 @@ async def leaderboard(
 ):
     if wl:
         url = "https://api.sekai.best/event/live_latest_chapter?region=" + region
-    elif else:
+    else:
         url = "https://api.sekai.best/event/live?region=" + region
     if page == 1:
         tops = range(0, 51)
@@ -64,13 +64,13 @@ async def leaderboard(
     raw = await sget(url)
     json = loads(raw)
     data = json["data"]["eventRankings"]
-    leaderboard = "".join(f"{data[top]['rank']}  {data[top]['userName']}"
+    leaderboard = "".join(f"{data[top]['rank']}  {data[top]['userName'][:20]}"
                           + f"  {data[top]['score']}\n" for top in tops)
     result = "```\n" + leaderboard + "```"
     await reply(ctx, result)
 
 @bot.slash_command(description="check is api.sekai.best alive")
-async def lw(ctx):
+async def apick(ctx):
     url = "https://api.sekai.best/status"
     statusurl = "https://status.sekai.best/history/api"
     raw = sget(url)
@@ -81,14 +81,14 @@ async def lw(ctx):
     await reply(ctx, result)
 
 @bot.slash_command(description="send random line of anti anti you")
-async def au(ctx):
+async def antiyou(ctx):
     line = check_output(["/usr/bin/python3", "./randomantiyou"])
     result = str(line, "utf-8")
     await reply(ctx, result)
 
-@bot.slash_command(description="convert r g b to hex")
-async def hex(ctx, r, g, b):
-    result = "#{:02x}{:02x}{:02x}".format(int(r), int(g), int(b))
+@bot.slash_command(description="convert rgb to hex")
+async def hex(ctx, red: int, green: int, blue: int):
+    result = "#{:02x}{:02x}{:02x}".format(red, green, blue)
     await reply(ctx, result)
 
 @bot.slash_command(description="get a value for compare isvs")
@@ -97,7 +97,7 @@ async def isv(ctx, leader_skill, team_skill):
     await reply(ctx, result)
 
 @bot.slash_command(description="convert hex to r g b")
-async def rgb(ctx, rawhex):
+async def rgb(ctx, rawhex: str):
     hex = rawhex.lstrip("#")
     r = int(hex[0:2], 16)
     g = int(hex[2:4], 16)

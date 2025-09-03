@@ -49,7 +49,7 @@ async def pk(ctx, target_points):
 @bot.slash_command(description="get leaderboard, 1 page = 50 tiers  (e.g. 2 nowl kr)")
 async def lb(
     ctx: Interaction,
-    region: int = SlashOption(
+    region: str = SlashOption(
         name="huii",
         choices=["en", "kr"],
     ),

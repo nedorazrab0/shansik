@@ -288,7 +288,7 @@ async def on_ready():
     print("Ready!")
 """
 async def reply(ctx, result):
-    await ctx.response.reply(result, mention_author=False)
+    await ctx.response.send_message(result)
 
 async def sget(url):
     headers = ({"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"

@@ -281,6 +281,11 @@ async def w(ctx):
     result = "goddamn whatsup"
     await reply(ctx, result)
 
+@client.event
+async def on_ready():
+    await tree.sync()
+    print("Ready!")
+
 async def reply(ctx, result):
     await ctx.reply(result, mention_author=False)
 

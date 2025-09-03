@@ -138,13 +138,19 @@ async def timestamp(
     result = "<t:" + timestamp + ":" + type + ">"
     await reply(ctx, result)
 
-@bot.slash_command(description="convert timezone (e.g. Europe/Moscow UTC 2022 12 31 23)")
-async def tz(ctx, source_zone, target_zone, year, month, day, h):
-    date = datetime(int(year), int(month), int(day), int(h),
-                    tzinfo=ZoneInfo(source_zone))
-    d = date.astimezone(ZoneInfo(target_zone))
-    result = (str(d.year) + " " + str(d.month) + " " + str(d.day) + " "
-              + str(d.hour))
+@bot.slash_command(description="convert timezone")
+async def tz(ctx,
+             hour: int,
+             source_zone: int = SlashOption(choices=list(-24, 25)),
+             target_zone: int = SlashOption(choices=list(-24, 25))
+):
+    converted = hour + source_zone + target_zone
+    if converted > 24:
+        result = f"{converted - 24} of the next day"
+    elif converted < 0:
+        result = f"{converted + 24} of the previous day"
+    else:
+        result = f"{converted} of the same day"
     await reply(ctx, result)
 
 @bot.slash_command(description="convert sizeunits (e.g. 10 gb mb)")

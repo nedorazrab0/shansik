@@ -254,20 +254,20 @@ async def kana(ctx):
 async def an(ctx):
     result = "<a:an:1410053927759646810>"
     await reply(ctx, result)
-
-@bot.command(help="white pic")
+"""
+@bot.slash_command(description="white pic")
 async def white(ctx):
     result = "<a:white:1410053954494267485>"
     await reply(ctx, result)
 
-@bot.command(help="generate a qr code from text")
+@bot.slash_command(description="generate a qr code from text")
 async def qr(ctx, text):
     url = ("https://api.qrserver.com/v1/create-qr-code/?size=1000x1000"
            + "&format=png&data=" + quote_plus(text, safe=""))
     result = url
     await reply(ctx, result)
 
-@bot.command(help="send a random safebooru img")
+@bot.slash_command(description="send a random safebooru img")
 async def img(ctx):
     url = ("https://safebooru.org/index.php?page=dapi&s=post&q=index&json=1"
            + "&limit=1&random=true")
@@ -276,17 +276,12 @@ async def img(ctx):
     file_url = json[0]["file_url"]
     result = file_url.lstrip("\\")
     await reply(ctx, result)
-"""
-@bot.slash_command(description="hui")
-async def w(ctx):
+
+@bot.slash_command(description="check is bot alive")
+async def botck(ctx):
     result = "goddamn whatsup"
     await reply(ctx, result)
-"""
-@client.event
-async def on_ready():
-    await tree.sync()
-    print("Ready!")
-"""
+
 async def reply(ctx, result):
     await ctx.response.send_message(result)
 

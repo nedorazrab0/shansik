@@ -49,9 +49,9 @@ async def pk(ctx, target_points):
 @bot.slash_command(description="get sekai leaderboard")
 async def leaderboard(
     ctx: Interaction,
-    page: int = SlashOption(choices=[1, 2]),
-    region: str = SlashOption(choices=["en", "kr"]),
-    wl: bool = SlashOption(choices=[True, False]),
+    page: int = SlashOption(choices=[1, 2], required=False),
+    region: str = SlashOption(choices=["en", "kr", "jp", "tw", "cn"], required=False),
+    wl: bool = SlashOption(choices=[True, False], required=False),
 ):
     type="nowl"
     if type == "wl":

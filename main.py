@@ -197,11 +197,11 @@ async def calculate(ctx, expr):
     await reply(ctx, result)
 
 @bot.slash_command(description="get the weather in specified location")
-async def weather(ctx, loc):
-    url = "https://wttr.in/" + loc + "?format=%t+%C+%uuw+%T&m&lang=ru"
+async def weather(ctx, location):
+    url = f"https://wttr.in/{location}?format=%t+%C+%uuw+%T&m&lang=ru"
     result = await sget(url)
     await reply(ctx, result)
-#
+
 @bot.slash_command(description="repeat the text n times (repeats, 'text')")
 async def repeats(ctx, repeats=79: int, text="z": str):
     if repeats > 2000:

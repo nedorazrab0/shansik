@@ -124,12 +124,12 @@ async def rm(ctx, code):
 @bot.slash_command(description="convert UTC to timestamp")
 async def timestamp(
     ctx: Interaction,
-    type: str = SlashOption(choices={"t short": "t", "T long": "T", "d short": "d", "D long": "D", "f D+t": "f", "F very long": "F"}),
     year: int,
     month: int,
     day: int,
     hour: int,
-    minute: int
+    minute: int,
+    type: str = SlashOption(choices={"t short": "t", "T long": "T", "d short": "d", "D long": "D", "f D+t": "f", "F very long": "F"})
 ):
     date = datetime(year, month, day, hour, minute, 0)
     timestamp = str(int(date.timestamp()))

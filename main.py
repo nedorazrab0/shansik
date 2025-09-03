@@ -21,8 +21,7 @@ intents.message_content = True
 activity = Game(name="pisun")
 bot = commands.Bot(intents=intents, activity=activity)
 
-"""
-@bot.command(help="flip a coin")
+@bot.slash_command(description="flip a coin")
 async def coin(ctx):
     rand = randint(0, 1)
     if rand == 1:
@@ -31,7 +30,7 @@ async def coin(ctx):
         result = "oh dang it"
     await reply(ctx, result)
 
-@bot.command(help="russian roulette roll")
+@bot.slash_command(description="russian roulette roll")
 async def rule(ctx):
     rand = randint(0, 5)
     if rand == 5:
@@ -40,14 +39,14 @@ async def rule(ctx):
         result = "you are lucky"
     await reply(ctx, result)
 
-@bot.command(help="get shows order for target points, 4* 0MR"
+@bot.slash_command(description="get shows order for target points, 4* 0MR"
                   + " (50% EB) and 1* 5MR (2% EB)")
 async def pk(ctx, target_points):
     order = check_output(["/usr/bin/python3", "./spc", "-p", target_points])
     result = str(order, "utf-8")
     await reply(ctx, result)
 
-@bot.command(help="get leaderboard, 1 page = 50 tiers  (e.g. 2 nowl kr)")
+@bot.slash_command(description="get leaderboard, 1 page = 50 tiers  (e.g. 2 nowl kr)")
 async def lb(ctx, page, type="nowl", reg="en"):
     if type == "wl":
         url = "https://api.sekai.best/event/live_latest_chapter?region=" + reg
@@ -65,7 +64,7 @@ async def lb(ctx, page, type="nowl", reg="en"):
     result = "```\n" + leaderboard + "```"
     await reply(ctx, result)
 
-@bot.command(help="check is api.sekai.best alive")
+@bot.slash_command(description="check is api.sekai.best alive")
 async def lw(ctx):
     url = "https://api.sekai.best/status"
     statusurl = "https://status.sekai.best/history/api"
@@ -76,23 +75,23 @@ async def lw(ctx):
         result = f"[api.sekai.best]({statusurl}) is alive"
     await reply(ctx, result)
 
-@bot.command(help="send random line of anti anti you")
+@bot.slash_command(description="send random line of anti anti you")
 async def au(ctx):
     line = check_output(["/usr/bin/python3", "./randomantiyou"])
     result = str(line, "utf-8")
     await reply(ctx, result)
 
-@bot.command(help="convert r g b to hex")
+@bot.slash_command(description="convert r g b to hex")
 async def hex(ctx, r, g, b):
     result = "#{:02x}{:02x}{:02x}".format(int(r), int(g), int(b))
     await reply(ctx, result)
 
-@bot.command(help="get a value for compare isvs")
+@bot.slash_command(description="get a value for compare isvs")
 async def isv(ctx, leader_skill, team_skill):
     result = int(leader_skill)*4 + int(team_skill) - 90
     await reply(ctx, result)
 
-@bot.command(help="convert hex to r g b")
+@bot.slash_command(description="convert hex to r g b")
 async def rgb(ctx, rawhex):
     hex = rawhex.lstrip("#")
     r = int(hex[0:2], 16)
@@ -102,7 +101,7 @@ async def rgb(ctx, rawhex):
     result = str(r) + " " + str(g) + " " + str(b)
     await reply(ctx, result)
 
-@bot.command(help="change room code")
+@bot.slash_command(description="change room code")
 async def rm(ctx, code):
     ch = ctx.channel
     regex = ".[0-9].*-[0-9|x][0-9|x][0-9|x][0-9|x][0-9|x]"
@@ -121,7 +120,7 @@ async def rm(ctx, code):
         result = "the channel name must be like this luka22-12345"
     await reply(ctx, result)
 
-@bot.command(help="convert type year month day h m to timestamp (types t,R,F)")
+@bot.slash_command(description="convert type year month day h m to timestamp (types t,R,F)")
 async def ts(ctx, type, year, month, day, h, m):
     if match("t|T|d|D|f|F|R", type):
         date = datetime(int(year), int(month), int(day), int(h), int(m), 0)
@@ -131,7 +130,7 @@ async def ts(ctx, type, year, month, day, h, m):
         result = "invalid type"
     await reply(ctx, result)
 
-@bot.command(help="convert timezone (e.g. Europe/Moscow UTC 2022 12 31 23)")
+@bot.slash_command(description="convert timezone (e.g. Europe/Moscow UTC 2022 12 31 23)")
 async def tz(ctx, source_zone, target_zone, year, month, day, h):
     date = datetime(int(year), int(month), int(day), int(h),
                     tzinfo=ZoneInfo(source_zone))
@@ -140,7 +139,7 @@ async def tz(ctx, source_zone, target_zone, year, month, day, h):
               + str(d.hour))
     await reply(ctx, result)
 
-@bot.command(help="convert sizeunits (e.g. 10 gb mb)")
+@bot.slash_command(description="convert sizeunits (e.g. 10 gb mb)")
 async def sz(ctx, num, sizeunit1, sizeunit2):
     sizeunits = {"bit": 1, "b": 8,
                  "kb": 10**3*8, "mb": 10**6*8, "gb": 10**9*8, "tb": 10**12*8,
@@ -151,22 +150,22 @@ async def sz(ctx, num, sizeunit1, sizeunit2):
     result = round(converted, 1)
     await reply(ctx, result)
 
-@bot.command(help="pick a random item of specified ones")
+@bot.slash_command(description="pick a random item of specified ones")
 async def pick(ctx, *items):
     result = choice(items)
     await reply(ctx, result)
 
-@bot.command(help="get the lenght of text, do not forget about quotes")
+@bot.slash_command(description="get the lenght of text, do not forget about quotes")
 async def ln(ctx, text):
     result = len(text)
     await reply(ctx, result)
 
-@bot.command(help="translate the text ('my text', lang)")
+@bot.slash_command(description="translate the text ('my text', lang)")
 async def tr(ctx, text, tolang="en"):
     result = await translate(text, tolang)
     await reply(ctx, result)
 
-@bot.command(help="send an extract of random wiki page")
+@bot.slash_command(description="send an extract of random wiki page")
 async def wk(ctx):
     lang = "ru"
     wikiurl = "https://en.wikipedia.org/w/"
@@ -186,7 +185,7 @@ async def wk(ctx):
     result = await translate(text, lang)
     await reply(ctx, result)
 
-@bot.command(help="calculator")
+@bot.slash_command(description="calculator")
 async def c(ctx, mathstr):
     if match('[a-zA-Z]', mathstr):
         result = "do not use any letters"
@@ -194,13 +193,13 @@ async def c(ctx, mathstr):
         result = eval(mathstr.upper())
     await reply(ctx, result)
 
-@bot.command(help="get the weather in specified location")
+@bot.slash_command(description="get the weather in specified location")
 async def wt(ctx, loc, lang="ru"):
     url = "https://wttr.in/" + loc + "?format=%t+%C+%uuw+%T&m&lang=" + lang
     result = await sget(url)
     await reply(ctx, result)
 
-@bot.command(help="repeat the text n times (repeats, 'text')")
+@bot.slash_command(description="repeat the text n times (repeats, 'text')")
 async def rp(ctx, repeats=79, text="z"):
     if repeats > 2000:
         result = "too many repeats"
@@ -208,53 +207,53 @@ async def rp(ctx, repeats=79, text="z"):
         result = "".join(text for i in range(int(repeats)))
     await reply(ctx, result)
 
-@bot.command(help="send a random string")
+@bot.slash_command(description="send a random string")
 async def rns(ctx):
     rand = "".join(choice(ascii_letters + digits + punctuation)
                    for i in range(20))
     result = "```\n" + rand + "\n```"
     await reply(ctx, result)
 
-@bot.command(help="send a random num, start stop")
+@bot.slash_command(description="send a random num, start stop")
 async def rn(ctx, start=1, stop=100):
     result = randint(int(start), int(stop))
     await reply(ctx, result)
 
-@bot.command(help="jason pic")
+@bot.slash_command(description="jason pic")
 async def jason(ctx):
     result = "<:jason:1410289021263020144>"
     await reply(ctx, result)
 
-@bot.command(help="taph pic")
+@bot.slash_command(description="taph pic")
 async def taph(ctx):
     result = "<:taph:1410288947619303484>"
     await reply(ctx, result)
 
-@bot.command(help="saki pic")
+@bot.slash_command(description="saki pic")
 async def saki(ctx):
     result = "<:saki:1410288878828388412>"
     await reply(ctx, result)
 
-@bot.command(help="teehee pic")
+@bot.slash_command(description="teehee pic")
 async def teehee(ctx):
     result = "<:teehee:1410288750742995078>"
     await reply(ctx, result)
 
-@bot.command(help="patpat pic")
+@bot.slash_command(description="patpat pic")
 async def patpat(ctx):
     result = "<a:patpat:1410053978921762867>"
     await reply(ctx, result)
 
-@bot.command(help="kanade pic")
+@bot.slash_command(description="kanade pic")
 async def kana(ctx):
     result = "<a:kanade:1410053899859267645>"
     await reply(ctx, result)
 
-@bot.command(help="an pic")
+@bot.slash_command(description="an pic")
 async def an(ctx):
     result = "<a:an:1410053927759646810>"
     await reply(ctx, result)
-"""
+
 @bot.slash_command(description="white pic")
 async def white(ctx):
     result = "<a:white:1410053954494267485>"

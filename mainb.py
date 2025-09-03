@@ -21,6 +21,7 @@ activity = Game(name="pisun")
 client = Client(intents=intents, activity=activity)
 tree = app_commands.CommandTree(client)
 
+"""
 @bot.command(help="flip a coin")
 async def coin(ctx):
     rand = randint(0, 1)
@@ -275,8 +276,8 @@ async def img(ctx):
     file_url = json[0]["file_url"]
     result = file_url.lstrip("\\")
     await reply(ctx, result)
-
-@bot.command(help="check is bot alive")
+"""
+@tree.command(description="hui")
 async def w(ctx):
     result = "goddamn whatsup"
     await reply(ctx, result)

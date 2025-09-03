@@ -160,13 +160,13 @@ async def pick(ctx, *items):
     result = choice(items)
     await reply(ctx, result)
 
-@bot.slash_command(description="get the lenght of text, do not forget about quotes")
+@bot.slash_command(description="get the lenght of text)
 async def ln(ctx, text):
     result = len(text)
     await reply(ctx, result)
 
-@bot.slash_command(description="translate the text ('my text', lang)")
-async def tr(ctx, text, tolang="en"):
+@bot.slash_command(description="translate the text")
+async def tr(ctx, text, lang="en"):
     result = await translate(text, tolang)
     await reply(ctx, result)
 
@@ -191,11 +191,11 @@ async def wk(ctx):
     await reply(ctx, result)
 
 @bot.slash_command(description="calculator")
-async def c(ctx, mathstr):
-    if match('[a-zA-Z]', mathstr):
+async def c(ctx, expr):
+    if match('[a-zA-Z]', expr):
         result = "do not use any letters"
     else:
-        result = eval(mathstr.upper())
+        result = eval(expr.upper())
     await reply(ctx, result)
 
 @bot.slash_command(description="get the weather in specified location")
@@ -203,7 +203,7 @@ async def wt(ctx, loc, lang="ru"):
     url = "https://wttr.in/" + loc + "?format=%t+%C+%uuw+%T&m&lang=" + lang
     result = await sget(url)
     await reply(ctx, result)
-
+#
 @bot.slash_command(description="repeat the text n times (repeats, 'text')")
 async def rp(ctx, repeats=79, text="z"):
     if repeats > 2000:

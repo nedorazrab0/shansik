@@ -19,7 +19,7 @@ from orjson import loads
 intents = Intents.default()
 intents.message_content = True
 activity = Game(name="pisun")
-bot = commands(intents=intents, activity=activity)
+bot = commands.Bot(intents=intents, activity=activity)
 
 """
 @bot.command(help="flip a coin")

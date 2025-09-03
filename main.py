@@ -19,7 +19,7 @@ from orjson import loads
 intents = Intents.default()
 intents.message_content = True
 activity = Game(name="pisun")
-bot = commands.Bot(intents=intents, activity=activity)
+bot = commands.Bot(command_prefix="-", intents=intents, activity=activity)
 
 @bot.slash_command(description="flip a coin")
 async def coin(ctx):
@@ -155,11 +155,6 @@ async def sz(ctx, num, sizeunit1, sizeunit2):
     result = round(converted, 1)
     await reply(ctx, result)
 
-@bot.slash_command(description="pick a random item of specified ones")
-async def pick(ctx, *items):
-    result = choice(items)
-    await reply(ctx, result)
-
 @bot.slash_command(description="get the lenght of text)
 async def ln(ctx, text):
     result = len(text)
@@ -284,6 +279,11 @@ async def img(ctx):
 @bot.slash_command(description="check is bot alive")
 async def botck(ctx):
     result = "goddamn whatsup"
+    await reply(ctx, result)
+
+@bot.command(description="pick a random item of specified ones")
+async def pick(ctx, *items):
+    result = choice(items)
     await reply(ctx, result)
 
 async def reply(ctx, result):

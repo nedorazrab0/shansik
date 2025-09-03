@@ -153,8 +153,8 @@ async def tz(ctx,
         result = f"{converted} of the same day"
     await reply(ctx, result)
 
-@bot.slash_command(description="convert sizeunits (e.g. 10 gb mb)")
-async def sz(ctx, num, sizeunit1, sizeunit2):
+@bot.slash_command(description="convert sizeunits")
+async def sizeconvert(ctx, num, sizeunit1, sizeunit2):
     sizeunits = {"bit": 1, "b": 8,
                  "kb": 10**3*8, "mb": 10**6*8, "gb": 10**9*8, "tb": 10**12*8,
                  "kibit": 2**10, "mibit": 2**20, "gibit": 2**30, "tibit": 2**40,

@@ -10,9 +10,9 @@ from zoneinfo import ZoneInfo
 from datetime import datetime
 from os import environ
 from re import match
-from gpytranslate import Translator
 from nextcord import Intents, Client, Game, Interaction, SlashOption, Member
 from nextcord.ext import commands
+from gpytranslate import Translator
 from aiohttp import ClientSession
 from orjson import loads
 

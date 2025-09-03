@@ -207,7 +207,8 @@ async def repeat(ctx, repeats: int, text: str):
     if repeats > 2000:
         result = "too many repeats"
     else:
-        result = "".join(text for i in range(int(repeats)))
+        text = "".join(text for i in range(int(repeats)))
+        result = text[:2000]
     await reply(ctx, result)
 
 @bot.slash_command(description="send a random string")

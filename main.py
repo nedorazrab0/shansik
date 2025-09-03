@@ -23,11 +23,7 @@ bot = commands.Bot(command_prefix="-", intents=intents, activity=activity)
 
 @bot.slash_command(description="flip a coin")
 async def coin(ctx):
-    rand = randint(0, 1)
-    if rand == 1:
-        result = "i cant stop winning"
-    else:
-        result = "oh dang it"
+    result = choice(["i cant stop winning", "oh dang it"])
     await reply(ctx, result)
 
 @bot.slash_command(description="russian roulette roll")
@@ -97,13 +93,13 @@ async def isv(ctx, leader_skill, team_skill):
     await reply(ctx, result)
 
 @bot.slash_command(description="convert hex to r g b")
-async def rgb(ctx, rawhex: str):
-    hex = rawhex.lstrip("#")
+async def rgb(ctx, hex: str):
+    hex = hex.lstrip("#")
     r = int(hex[0:2], 16)
     g = int(hex[2:4], 16)
     b = int(hex[4:6], 16)
 
-    result = str(r) + " " + str(g) + " " + str(b)
+    result = f"{r} {g} {b}"
     await reply(ctx, result)
 
 @bot.slash_command(description="change room code")
@@ -161,12 +157,12 @@ async def ln(ctx, text):
     await reply(ctx, result)
 
 @bot.slash_command(description="translate the text")
-async def tr(ctx, text, lang="en"):
-    result = await translate(text, tolang)
+async def tra(ctx, text: str, lang: str):
+    result = await translate(text, lang)
     await reply(ctx, result)
 
 @bot.slash_command(description="send an extract of random wiki page")
-async def wk(ctx):
+async def wiki(ctx):
     lang = "ru"
     wikiurl = "https://en.wikipedia.org/w/"
     sekaipediaurl = "https://www.sekaipedia.org/w/"
@@ -182,11 +178,14 @@ async def wk(ctx):
     id = str(*json["query"]["pages"])
     text = json["query"]["pages"][id]["extract"]
 
-    result = await translate(text, lang)
+    if text is None:
+        result = "im in your walls"
+    else:
+        result = await translate(text, lang)
     await reply(ctx, result)
 
 @bot.slash_command(description="calculator")
-async def c(ctx, expr):
+async def calculate(ctx, expr):
     if match('[a-zA-Z]', expr):
         result = "do not use any letters"
     else:
@@ -194,13 +193,13 @@ async def c(ctx, expr):
     await reply(ctx, result)
 
 @bot.slash_command(description="get the weather in specified location")
-async def wt(ctx, loc, lang="ru"):
-    url = "https://wttr.in/" + loc + "?format=%t+%C+%uuw+%T&m&lang=" + lang
+async def weather(ctx, loc):
+    url = "https://wttr.in/" + loc + "?format=%t+%C+%uuw+%T&m&lang=ru"
     result = await sget(url)
     await reply(ctx, result)
 #
 @bot.slash_command(description="repeat the text n times (repeats, 'text')")
-async def rp(ctx, repeats=79, text="z"):
+async def repeats(ctx, repeats=79: int, text="z": str):
     if repeats > 2000:
         result = "too many repeats"
     else:
@@ -208,14 +207,14 @@ async def rp(ctx, repeats=79, text="z"):
     await reply(ctx, result)
 
 @bot.slash_command(description="send a random string")
-async def rns(ctx):
+async def random_str(ctx):
     rand = "".join(choice(ascii_letters + digits + punctuation)
                    for i in range(20))
     result = "```\n" + rand + "\n```"
     await reply(ctx, result)
 
 @bot.slash_command(description="send a random num, start stop")
-async def rn(ctx, start=1, stop=100):
+async def random(ctx, start=1, stop=100):
     result = randint(int(start), int(stop))
     await reply(ctx, result)
 
@@ -264,6 +263,14 @@ async def qr(ctx, text):
     url = ("https://api.qrserver.com/v1/create-qr-code/?size=1000x1000"
            + "&format=png&data=" + quote_plus(text, safe=""))
     result = url
+    await reply(ctx, result)
+
+@bot.slash_command(description="hug a user")
+async def hug(ctx, user: Member):
+    url = "https://nekos.life/api/v2/img/hug"
+    raw = await sget(url)
+    json = loads(raw)
+    result = f"{user.mention}[))))]({json['url']})"
     await reply(ctx, result)
 
 @bot.slash_command(description="send a random safebooru img")

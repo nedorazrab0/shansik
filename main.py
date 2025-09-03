@@ -66,7 +66,7 @@ async def leaderboard(
     await reply(ctx, result)
 
 @bot.slash_command(description="check is api.sekai.best alive")
-async def apick(ctx):
+async def api_check(ctx):
     url = "https://api.sekai.best/status"
     statusurl = "https://status.sekai.best/history/api"
     raw = sget(url)
@@ -297,7 +297,7 @@ async def img(ctx):
     await reply(ctx, result)
 
 @bot.slash_command(description="check is bot alive")
-async def botck(ctx):
+async def bot_check(ctx):
     result = "goddamn whatsup"
     await reply(ctx, result)
 

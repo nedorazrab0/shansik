@@ -50,9 +50,10 @@ async def leaderboard(
     wl: bool = SlashOption(choices=[True, False]),
 ):
     if wl:
-        url = "https://api.sekai.best/event/live_latest_chapter?region=" + region
+        type = "live_latest_chapter"
     else:
-        url = "https://api.sekai.best/event/live?region=" + region
+        type = "live"
+    url = f"https://api.sekai.best/event/{type}?region={region}"
     if page == 1:
         tops = range(0, 51)
     elif page == 2:
@@ -88,8 +89,8 @@ async def hex(ctx, red: int, green: int, blue: int):
     await reply(ctx, result)
 
 @bot.slash_command(description="get a value for compare isvs")
-async def isv(ctx, leader_skill, team_skill):
-    result = int(leader_skill)*4 + int(team_skill) - 90
+async def isv(ctx, leader_skill: int, team_skill: int):
+    result = leader_skill*4 + team_skill - 90
     await reply(ctx, result)
 
 @bot.slash_command(description="convert hex to r g b")
@@ -121,14 +122,19 @@ async def rm(ctx, code):
         result = "the channel name must be like this luka22-12345"
     await reply(ctx, result)
 
-@bot.slash_command(description="convert type year month day h m to timestamp (types t,R,F)")
-async def ts(ctx, type, year, month, day, h, m):
-    if match("t|T|d|D|f|F|R", type):
-        date = datetime(int(year), int(month), int(day), int(h), int(m), 0)
-        timestamp = str(int(date.timestamp()))
-        result = "<t:" + timestamp + ":" + type + ">"
-    else:
-        result = "invalid type"
+@bot.slash_command(description="convert UTC to timestamp")
+async def timestamp(ctx, type, year, month, day, hour, minute):
+    ctx: Interaction,
+    type: str = SlashOption(choices={"t short": "t", "T long": "T", "d short": "d", "D long": "D", "f D+t": "f", "F very long": "F"}),
+    year: int,
+    month: int,
+    day: int,
+    hour: int,
+    minute: int
+):
+    date = datetime(year, month, day, hour, minute, 0)
+    timestamp = str(int(date.timestamp()))
+    result = "<t:" + timestamp + ":" + type + ">"
     await reply(ctx, result)
 
 @bot.slash_command(description="convert timezone (e.g. Europe/Moscow UTC 2022 12 31 23)")
@@ -163,7 +169,6 @@ async def tra(ctx, text: str, lang: str):
 
 @bot.slash_command(description="send an extract of random wiki page")
 async def wiki(ctx):
-    lang = "ru"
     wikiurl = "https://en.wikipedia.org/w/"
     sekaipediaurl = "https://www.sekaipedia.org/w/"
     opts = ("api.php?format=json&action=query&explaintext&generator=random"
@@ -181,7 +186,7 @@ async def wiki(ctx):
     if text is None:
         result = "im in your walls"
     else:
-        result = await translate(text, lang)
+        result = await translate(text, "ru")
     await reply(ctx, result)
 
 @bot.slash_command(description="calculator")
@@ -213,9 +218,9 @@ async def random_str(ctx):
     result = "```\n" + rand + "\n```"
     await reply(ctx, result)
 
-@bot.slash_command(description="send a random num, start stop")
-async def random(ctx, start=1, stop=100):
-    result = randint(int(start), int(stop))
+@bot.slash_command(description="send a random num")
+async def random(ctx, start: int, stop: int):
+    result = randint(start, stop)
     await reply(ctx, result)
 
 @bot.slash_command(description="jason pic")

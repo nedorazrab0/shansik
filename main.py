@@ -6,7 +6,6 @@ from string import ascii_letters, digits, punctuation
 from urllib.parse import quote_plus
 from subprocess import check_output
 from random import randint, choice
-from zoneinfo import ZoneInfo
 from datetime import datetime
 from os import environ
 from re import match
@@ -141,8 +140,8 @@ async def timestamp(
 @bot.slash_command(description="convert timezone")
 async def tz(ctx,
              hour: int,
-             source_zone: int = SlashOption(choices=list(-24, 25)),
-             target_zone: int = SlashOption(choices=list(-24, 25))
+             source_zone: int = SlashOption(choices=list(range(-24, 25))),
+             target_zone: int = SlashOption(choices=list(range(-24, 25)))
 ):
     converted = hour + source_zone + target_zone
     if converted > 24:

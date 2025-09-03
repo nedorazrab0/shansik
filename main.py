@@ -202,7 +202,7 @@ async def weather(ctx, location):
     result = await sget(url)
     await reply(ctx, result)
 
-@bot.slash_command(description="repeat the text n times (repeats, 'text')")
+@bot.slash_command(description="repeat the text n times")
 async def repeat(ctx, repeats: int, text: str):
     if repeats > 2000:
         result = "too many repeats"

@@ -155,7 +155,7 @@ async def sz(ctx, num, sizeunit1, sizeunit2):
     result = round(converted, 1)
     await reply(ctx, result)
 
-@bot.slash_command(description="get the lenght of text)
+@bot.slash_command(description="get the lenght of text")
 async def ln(ctx, text):
     result = len(text)
     await reply(ctx, result)

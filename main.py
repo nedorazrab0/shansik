@@ -11,15 +11,15 @@ from datetime import datetime
 from os import environ
 from re import match
 from gpytranslate import Translator
-from nextcord import Intents, Client, Game, app_commands, Interaction
+from nextcord import Intents, Client, Game, Interaction
+from nextcord.ext import Bot, slash_command
 from aiohttp import ClientSession
 from orjson import loads
 
 intents = Intents.default()
 intents.message_content = True
 activity = Game(name="pisun")
-client = Client(intents=intents, activity=activity)
-tree = app_commands.CommandTree(client)
+bot = Bot(intents=intents, activity=activity)
 
 """
 @bot.command(help="flip a coin")
@@ -277,7 +277,7 @@ async def img(ctx):
     result = file_url.lstrip("\\")
     await reply(ctx, result)
 """
-@tree.command(description="hui")
+@bot.slash_command(description="hui")
 async def w(ctx):
     result = "goddamn whatsup"
     await reply(ctx, result)
@@ -304,4 +304,4 @@ async def translate(text, lang):
     return result
 
 token = environ["TOKEN"]
-client.run(token)
+bot.run(token)

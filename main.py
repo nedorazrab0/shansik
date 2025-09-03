@@ -47,7 +47,14 @@ async def pk(ctx, target_points):
     await reply(ctx, result)
 
 @bot.slash_command(description="get leaderboard, 1 page = 50 tiers  (e.g. 2 nowl kr)")
-async def lb(ctx, page, type="nowl", reg="en"):
+async def lb(
+    ctx: Interaction,
+    region: int = SlashOption(
+        name="huii",
+        choices=["en", "kr"],
+    ),
+):
+    type="nowl"
     if type == "wl":
         url = "https://api.sekai.best/event/live_latest_chapter?region=" + reg
     elif type == "nowl":

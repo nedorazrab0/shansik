@@ -19,6 +19,7 @@ intents = Intents.default()
 intents.message_content = True
 activity = Game(name="pisun")
 client = Client(intents=intents, activity=activity)
+tree = app_commands.CommandTree(client)
 
 @bot.command(help="flip a coin")
 async def coin(ctx):

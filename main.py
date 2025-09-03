@@ -35,9 +35,8 @@ async def rule(ctx):
         result = "you are lucky"
     await reply(ctx, result)
 
-@bot.slash_command(description="get shows order for target points, 4* 0MR"
-                  + " (50% EB) and 1* 5MR (2% EB)")
-async def pk(ctx, target_points):
+@bot.slash_command(description="shows order, 4* 0MR (50% EB) and 1* 5MR (2% EB)")
+async def park(ctx, target_points):
     order = check_output(["/usr/bin/python3", "./spc", "-p", target_points])
     result = str(order, "utf-8")
     await reply(ctx, result)

@@ -11,7 +11,7 @@ from datetime import datetime
 from os import environ
 from re import match
 from gpytranslate import Translator
-from nextcord import Intents, Client, Game, Interaction
+from nextcord import Intents, Client, Game, Interaction, SlashOption
 from nextcord.ext import commands
 from aiohttp import ClientSession
 from orjson import loads

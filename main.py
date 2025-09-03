@@ -136,9 +136,9 @@ async def timestamp(
     timestamp = str(int(date.timestamp()))
     result = "<t:" + timestamp + ":" + type + ">"
     await reply(ctx, result)
-
+"""
 @bot.slash_command(description="convert timezone")
-async def tz(ctx,
+async def timezone(ctx,
              hour: int,
              source_zone: int = SlashOption(choices=list(range(-24, 25))),
              target_zone: int = SlashOption(choices=list(range(-24, 25)))
@@ -151,7 +151,7 @@ async def tz(ctx,
     else:
         result = f"{converted} of the same day"
     await reply(ctx, result)
-
+"""
 @bot.slash_command(description="convert sizeunits")
 async def sizeconvert(ctx, num, sizeunit1, sizeunit2):
     sizeunits = {"bit": 1, "b": 8,

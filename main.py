@@ -49,18 +49,17 @@ async def pk(ctx, target_points):
 @bot.slash_command(description="get sekai leaderboard")
 async def leaderboard(
     ctx: Interaction,
-    page: int = SlashOption(choices=[1, 2], required=False),
-    region: str = SlashOption(choices=["en", "kr", "jp", "tw", "cn"], required=False),
-    wl: bool = SlashOption(choices=[True, False], required=False),
+    page: int = SlashOption(choices=[1, 2]),
+    region: str = SlashOption(choices=["en", "kr", "jp", "tw", "cn"]),
+    wl: bool = SlashOption(choices=[True, False]),
 ):
-    type="nowl"
-    if type == "wl":
+    if wl:
         url = "https://api.sekai.best/event/live_latest_chapter?region=" + region
-    elif type == "nowl":
+    elif else:
         url = "https://api.sekai.best/event/live?region=" + region
-    if int(page) == 1:
+    if page == 1:
         tops = range(0, 51)
-    else:
+    elif page == 2:
         tops = range(50, 103)
     raw = await sget(url)
     json = loads(raw)

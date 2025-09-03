@@ -12,14 +12,14 @@ from os import environ
 from re import match
 from gpytranslate import Translator
 from nextcord import Intents, Client, Game, Interaction
-from nextcord.ext import Bot, slash_command
+from nextcord.ext import commands, slash_command
 from aiohttp import ClientSession
 from orjson import loads
 
 intents = Intents.default()
 intents.message_content = True
 activity = Game(name="pisun")
-bot = Bot(intents=intents, activity=activity)
+bot = commands(intents=intents, activity=activity)
 
 """
 @bot.command(help="flip a coin")

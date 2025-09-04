@@ -306,7 +306,7 @@ async def bot_check(ctx):
     result = "goddamn whatsup"
     await reply(ctx, result)
 
-@bot.command(description="pick a random item of specified ones")
+@bot.command(help="pick a random item of specified ones")
 async def pick(ctx, *items):
     result = choice(items)
     await reply(ctx, result)

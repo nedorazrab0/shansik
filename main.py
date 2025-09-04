@@ -130,7 +130,8 @@ async def timestamp(
     minute: int,
     type: str = SlashOption(choices={"t time short": "t", "T time long": "T",
                                      "d date short": "d", "D date long": "D",
-                                     "f D+t": "f", "F very long": "F"})
+                                     "f D+t": "f", "F very long": "F",
+                                     "R timeleft": "R"})
 ):
     date = datetime(year, month, day, hour, minute, 0)
     timestamp = str(int(date.timestamp()))

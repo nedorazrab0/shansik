@@ -159,13 +159,13 @@ async def timezone(
     await reply(ctx, result)
 
 @bot.slash_command(description="convert sizeunits")
-async def sizeconvert(ctx, num, sizeunit1, sizeunit2):
+async def sizeconvert(ctx, num: int, sizeunit1, sizeunit2):
     sizeunits = {"bit": 1, "b": 8,
                  "kb": 10**3*8, "mb": 10**6*8, "gb": 10**9*8, "tb": 10**12*8,
                  "kibit": 2**10, "mibit": 2**20, "gibit": 2**30, "tibit": 2**40,
                  "kbit": 10**3, "mbit": 10**6, "gbit": 10**9, "tbit": 10**12,
                  "kib": 2**10*8, "mib": 2**20*8, "gib": 2**30*8, "tib": 2**40*8}
-    converted = (int(num)*sizeunits[sizeunit1])/sizeunits[sizeunit2]
+    converted = (num*sizeunits[sizeunit1])/sizeunits[sizeunit2]
     result = round(converted, 1)
     await reply(ctx, result)
 

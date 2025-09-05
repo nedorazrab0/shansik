@@ -322,5 +322,4 @@ async def translate(text, lang):
     result = await t.translate(text[:690], targetlang=lang)
     return result
 
-token = environ["TOKEN"]
-bot.run(token)
+bot.run(environ["TOKEN"])

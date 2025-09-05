@@ -311,7 +311,7 @@ async def bot_check(ctx):
     await reply(ctx, result)
 
 @bot.slash_command(description="help")
-async def bot_check(ctx):
+async def help(ctx):
     github = "https://github.com/nedorazrab0/shansik"
     privacy = github + "/blob/main/privacy.md"
     tos = github + "/blob/main/tos.md"

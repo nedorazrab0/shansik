@@ -310,6 +310,16 @@ async def bot_check(ctx):
     result = "goddamn whatsup"
     await reply(ctx, result)
 
+@bot.slash_command(description="help")
+async def bot_check(ctx):
+    github = "https://github.com/nedorazrab0/shansik"
+    privacy = github + "/blob/main/privacy.md"
+    tos = github + "/blob/main/tos.md"
+    license = github + "/blob/main/LICENSE"
+    result = (f"pjsk and etc bot. [github]({github}) [privacy policy](privacy)"
+              + f"[tos]({tos}) [license]({license})")
+    await reply(ctx, result)
+
 async def reply(ctx, result):
     await ctx.response.send_message(result)
 

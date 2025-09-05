@@ -34,6 +34,11 @@ async def rule(ctx):
         result = "you are lucky"
     await reply(ctx, result)
 
+@bot.slash_command(help="pick a random item of specified ones")
+async def pick(ctx, items: str):
+    result = choice(items.split)
+    await reply(ctx, result)
+
 @bot.slash_command(description="shows order, 4* 0MR (50% EB) and 1* 5MR (2% EB)")
 async def park(ctx, target_points):
     order = check_output(["/usr/bin/python3", "./spc", "-p", target_points])
@@ -304,11 +309,6 @@ async def img(ctx):
 @bot.slash_command(description="check is bot alive")
 async def bot_check(ctx):
     result = "goddamn whatsup"
-    await reply(ctx, result)
-
-@bot.command(help="pick a random item of specified ones")
-async def pick(ctx, *items):
-    result = choice(items)
     await reply(ctx, result)
 
 async def reply(ctx, result):

@@ -49,7 +49,7 @@ async def park(ctx, target_points):
 @bot.slash_command(description="get sekai leaderboard")
 async def leaderboard(
     ctx: Interaction,
-    page: int = SlashOption(choices=[1, 2]),
+    page: int = SlashOption(choices=[1, 2], description="page = 50 tiers"),
     region: str = SlashOption(choices=["en", "kr", "jp", "tw", "cn"]),
     wl: bool = SlashOption(choices=[True, False]),
 ):
@@ -285,7 +285,7 @@ async def qr(ctx, text):
     result = url
     await reply(ctx, result)
 
-@bot.slash_command(description="hug a user")
+@bot.slash_command(description="hug a user <3")
 async def hug(ctx, user: Member):
     url = "https://nekos.life/api/v2/img/hug"
     raw = await sget(url)

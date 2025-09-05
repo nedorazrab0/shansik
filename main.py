@@ -198,11 +198,7 @@ async def wiki(ctx):
     json = loads(page)
     id = str(*json["query"]["pages"])
     text = json["query"]["pages"][id]["extract"]
-
-    if text is None:
-        result = "im in your walls"
-    else:
-        result = await translate(text, "ru")
+    result = await translate(text, "ru")
     await reply(ctx, result)
 
 @bot.slash_command(description="calculator")

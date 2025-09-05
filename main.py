@@ -35,7 +35,7 @@ async def rule(ctx):
 
 @bot.slash_command(description="pick a random item of specified ones")
 async def pick(ctx, items: str):
-    result = choice(items.split)
+    result = choice(items.split())
     await reply(ctx, result)
 
 @bot.slash_command(description="shows order, 4* 0MR (50% EB) and 1* 5MR (2% EB)")

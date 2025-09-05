@@ -38,7 +38,9 @@ async def pick(ctx, items: str):
     result = choice(items.split())
     await reply(ctx, result)
 
-@bot.slash_command(description="shows order, 4* 0MR (50% EB) and 1* 5MR (2% EB)")
+@bot.slash_command(
+    description="shows order, teams all 4* 0MR (50% EB) and all 1* 5MR (2% EB)"
+)
 async def park(ctx, target_points):
     order = check_output(["/usr/bin/python3", "./spc", "-p", target_points])
     result = str(order, "utf-8")

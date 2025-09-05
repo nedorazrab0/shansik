@@ -290,7 +290,7 @@ async def hug(ctx, user: Member):
     url = "https://nekos.life/api/v2/img/hug"
     raw = await sget(url)
     json = loads(raw)
-    result = f"{user.mention}[))))]({json['url']})"
+    result = f"{user.mention}[))))]({json['url']})  <3"
     await reply(ctx, result)
 
 @bot.slash_command(description="send a random safebooru img")

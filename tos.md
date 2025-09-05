@@ -2,7 +2,7 @@
 
 Last updated: 2025/09/05 11:00
 
-Do not use this service if you I do not agree with its terms
+Do not use this service if you do not agree with its terms
 
 ## 1. Privacy policy
 

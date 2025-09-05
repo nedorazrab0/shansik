@@ -11,7 +11,7 @@ Click here to read our privacy policy: [privacy policy](./privacy.md)
 ## 2. No warranty
 
 The service is provided "as is" and the author disclaims all warranties with
-regard to this software including all implied warranties of merchantability
+regard to this service including all implied warranties of merchantability
 and fitness. In no event shall the author be liable for any special, direct,
 indirect, or consequential damages or any damages whatsoever resulting from
 loss of use, data or profits, whether in an action of contract, negligence or

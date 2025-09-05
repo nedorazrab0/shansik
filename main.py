@@ -138,8 +138,8 @@ async def timestamp(
                                      "R timeleft": "R"})
 ):
     date = datetime(year, month, day, hour, minute, 0)
-    timestamp = str(int(date.timestamp()))
-    result = "<t:" + timestamp + ":" + type + ">"
+    timestamp = int(date.timestamp())
+    result = f"<t:{timestamp}:{type}>"
     await reply(ctx, result)
 
 @bot.slash_command(description="convert timezone")

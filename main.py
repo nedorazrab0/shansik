@@ -15,10 +15,9 @@ from gpytranslate import Translator
 from aiohttp import ClientSession
 from orjson import loads
 
-intents = Intents.default()
-intents.message_content = True
 activity = Game(name="pisun")
-bot = commands.Bot(command_prefix="-", intents=intents, activity=activity)
+intents = Intents.default()
+bot = commands.Bot(intents=intents, activity=activity)
 
 @bot.slash_command(description="flip a coin")
 async def coin(ctx):
@@ -34,7 +33,7 @@ async def rule(ctx):
         result = "you are lucky"
     await reply(ctx, result)
 
-@bot.slash_command(help="pick a random item of specified ones")
+@bot.slash_command(description="pick a random item of specified ones")
 async def pick(ctx, items: str):
     result = choice(items.split)
     await reply(ctx, result)

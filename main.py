@@ -280,8 +280,8 @@ async def white(ctx):
 
 @bot.slash_command(description="generate a qr code from text")
 async def qr(ctx, text):
-    url = ("https://api.qrserver.com/v1/create-qr-code/?size=1000x1000"
-           + "&format=png&data=" + quote_plus(text, safe=""))
+    url = ("https://api.qrserver.com/v1/create-qr-code/?size=512x512"
+           + "&format=png&qzone=4&data=" + quote_plus(text, safe=""))
     result = url
     await reply(ctx, result)
 

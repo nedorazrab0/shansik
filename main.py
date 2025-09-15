@@ -97,6 +97,16 @@ async def isv(ctx, leader_skill: int, team_skill: int):
     result = leader_skill*4 + team_skill - 90
     await reply(ctx, result)
 
+@bot.slash_command(description="smert v nishite")
+async def call(ctx):
+    maxurl = ("https://raw.githubusercontent.com/nedorazrab0/smert-v-nishite"
+              +"/main/max")
+    max = await sget(maxurl)
+    rand = randint(1, max)
+    result = ("https://raw.githubusercontent.com/nedorazrab0/smert-v-nishite"
+              + f"/main/images/{rand}.webp")
+    await reply(ctx, result)
+
 @bot.slash_command(description="convert hex to r g b")
 async def rgb(ctx, hex: str):
     hex = hex.lstrip("#")

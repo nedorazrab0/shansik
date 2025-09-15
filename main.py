@@ -102,7 +102,7 @@ async def call(ctx):
     maxurl = ("https://raw.githubusercontent.com/nedorazrab0/smert-v-nishite"
               +"/main/max")
     max = await sget(maxurl)
-    rand = randint(1, max)
+    rand = randint(1, int(max))
     result = ("https://raw.githubusercontent.com/nedorazrab0/smert-v-nishite"
               + f"/main/images/{rand}.webp")
     await reply(ctx, result)

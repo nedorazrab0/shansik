@@ -329,7 +329,7 @@ async def bot_check(ctx):
 
 async def reply(ctx, result):
     await ctx.response.defer()
-    await ctx.followup.send_message(result)
+    await ctx.followup.send(result)
 
 class tier:
     def __init__(self, top, name, score):

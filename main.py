@@ -67,13 +67,13 @@ async def leaderboard(
     elif page == 4:
         n = slice(75, 100)
     elif page == 5:
-        n = slice(100, 118)
+        n = slice(100, None)
     raw = await sget(url)
     json = loads(raw)
     data = json["data"]["eventRankings"]
 
     board = (tier(data[i]["rank"], data[i]["userName"], data[i]["score"])
-             for i in range(118))
+             for i in range(len(data)))
     leaderboard = sorted(board, key=lambda x: x.top)
     result = "```\n" + "".join(f"{i}" for i in leaderboard[n]) + "```"
     await reply(ctx, result)

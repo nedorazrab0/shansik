@@ -69,8 +69,8 @@ async def leaderboard(
     users = product(tops, range(118))
     leaderboard = ""
     for user in users:
-        userdata = data[user]
-        if userdata["rank"] == users[0]:
+        userdata = data[user[1]]
+        if userdata[1]["rank"] == user[0]:
             leaderboard += f"{userdata['rank']}  '{userdata['userName'][:20]}'  {userdata['score']}"
     result = "```\n" + leaderboard + "```"
     await reply(ctx, result)

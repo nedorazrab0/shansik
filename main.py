@@ -68,7 +68,7 @@ async def leaderboard(
     data = json["data"]["eventRankings"]
     users = product(tops, range(118))
     leaderboard = ""
-    for user in users[1]:
+    for user in users:
         userdata = data[user]
         if userdata["rank"] == users[0]:
             leaderboard += f"{userdata['rank']}  '{userdata['userName'][:20]}'  {userdata['score']}"

@@ -53,6 +53,7 @@ async def leaderboard(
     region: str = SlashOption(choices=("en", "kr", "jp", "tw", "cn")),
     wl: bool = SlashOption(choices=(True, False)),
 ):
+    await ctx.response.defer()
     if wl:
         type = "live_latest_chapter"
     else:

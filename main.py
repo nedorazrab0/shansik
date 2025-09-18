@@ -50,7 +50,7 @@ async def park(ctx, target_points):
 @bot.slash_command(description="get sekai leaderboard")
 async def leaderboard(
     ctx: Interaction,
-    page: int = SlashOption(choices=[1, 2], description="page = 50 tiers"),
+    page: int = SlashOption(choices=[1, 2, 3], description="page = 50 tiers"),
     region: str = SlashOption(choices=["en", "kr", "jp", "tw", "cn"]),
     wl: bool = SlashOption(choices=[True, False]),
 ):
@@ -60,9 +60,11 @@ async def leaderboard(
         type = "live"
     url = f"https://api.sekai.best/event/{type}?region={region}"
     if page == 1:
-        tops = range(0, 51)
+        tops = range(0, 50)
     elif page == 2:
         tops = range(50, 100)
+    elif page == 3:
+        tops = (100000)
     raw = await sget(url)
     json = loads(raw)
     data = json["data"]["eventRankings"]

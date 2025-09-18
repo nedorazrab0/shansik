@@ -49,7 +49,7 @@ async def park(ctx, target_points):
 @bot.slash_command(description="get sekai leaderboard")
 async def leaderboard(
     ctx: Interaction,
-    page: int = SlashOption(choices=(1, 2, 3), description="page = 50 tiers"),
+    page: int = SlashOption(choices=(1, 2, 3, 4 ,5), description="page = 25 tiers"),
     region: str = SlashOption(choices=("en", "kr", "jp", "tw", "cn")),
     wl: bool = SlashOption(choices=(True, False)),
 ):
@@ -59,11 +59,15 @@ async def leaderboard(
         type = "live"
     url = f"https://api.sekai.best/event/{type}?region={region}"
     if page == 1:
-        tops = range(0, 50)
+        n = slice(0, 26)
     elif page == 2:
-        tops = range(50, 100)
+        n = slice(25, 51)
     elif page == 3:
-        tops = range(100, 118)
+        n = slice(50, 76)
+    elif page == 4:
+        n = slice(75, 100)
+    elif page == 5:
+        n = slice(100, 119)
     raw = await sget(url)
     json = loads(raw)
     data = json["data"]["eventRankings"]
@@ -71,7 +75,7 @@ async def leaderboard(
     board = (tier(data[i]["rank"], data[i]["userName"][:20], data[i]["score"])
              for i in range(119))
     leaderboard = sorted(board, key=lambda x: x.top)
-    result = "```\n" + "".join(f"{i}" for i in leaderboard[slice(20)]) + "```"
+    result = "```\n" + "".join(f"{i}" for i in leaderboard[n]) + "```"
     await reply(ctx, result)
 
 

@@ -70,7 +70,7 @@ async def leaderboard(
 
     board = (tier(data[i]["rank"], data[i]["userName"][:20], data[i]["score"])
              for i in range(119))
-    leaderboard = sorted(leaderboard, key=lambda x: x.top)
+    leaderboard = sorted(board, key=lambda x: x.top)
     result = "```\n" + "".join(f"{i}" for i in leaderboard[slice(20)]) + "```"
     await reply(ctx, result)
 

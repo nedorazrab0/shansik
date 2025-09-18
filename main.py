@@ -6,7 +6,6 @@ from string import ascii_letters, digits, punctuation
 from urllib.parse import quote_plus
 from subprocess import check_output
 from random import randint, choice
-from itertools import product
 from datetime import datetime
 from os import environ
 from re import match
@@ -60,19 +59,16 @@ async def leaderboard(
         type = "live"
     url = f"https://api.sekai.best/event/{type}?region={region}"
     if page == 1:
-        tops = range(0, 50)
+        tops = range(0, 41)
     elif page == 2:
-        tops = range(50, 100)
+        tops = range(40, 81)
     elif page == 3:
-        tops = (100, 200, 300, 400, 500, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 10000, 20000, 30000, 40000, 50000, 100000, 200000, 300000)
+        tops = range(80, 119)
     raw = await sget(url)
     json = loads(raw)
     data = json["data"]["eventRankings"]
-    users = product(tops, range(118))
-    leaderboard = ""
-    for user in users:
-        if data[user[0]]["rank"] == user[1]:
-            leaderboard += f"{data[user[0]]['rank']}  '{data[user[0]]['userName'][:20]}'  {data[user[0]]['score']}\n"
+    leaderboard = "".join(f"{data[top]['rank']}  {data[top]['userName'][:20]}"
+                          + f"  {data[top]['score']}\n" for top in tops)
     result = "```\n" + leaderboard + "```"
     await reply(ctx, result)
 

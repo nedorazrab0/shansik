@@ -78,36 +78,6 @@ async def leaderboard(
     result = "```\n" + "".join(f"{i}" for i in leaderboard[n]) + "```"
     await reply(ctx, result)
 
-
-"""
-@bot.slash_command(description="get sekai leaderboard")
-async def leaderboard(
-    ctx: Interaction,
-    page: int = SlashOption(choices=(1, 2, 3), description="page = 50 tiers"),
-    region: str = SlashOption(choices=("en", "kr", "jp", "tw", "cn")),
-    wl: bool = SlashOption(choices=(True, False)),
-):
-    if wl:
-        type = "live_latest_chapter"
-    else:
-        type = "live"
-    url = f"https://api.sekai.best/event/{type}?region={region}"
-    if page == 1:
-        tops = range(0, 50)
-    elif page == 2:
-        tops = range(50, 100)
-    elif page == 3:
-        tops = range(100, 118)
-    raw = await sget(url)
-    json = loads(raw)
-    data = json["data"]["eventRankings"]
-    leaderboard = "".join(f"{data[top]['rank']}  '{data[top]['userName']}'"
-                          + f"  {data[top]['score']}\n" for top in tops)
-    result = "```\n" + leaderboard + "```"
-    await reply(ctx, result)
-"""
-
-
 @bot.slash_command(description="check is api.sekai.best alive")
 async def api_check(ctx):
     url = "https://api.sekai.best/status"
@@ -366,7 +336,7 @@ class tier:
         self.score = score
 
     def __repr__(self):
-        return f"{self.top} {self.name} {self.score}\n"
+        return f"{self.top}  '{self.name}'  {self.score}\n"
 
 async def sget(url):
     headers = ({"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"

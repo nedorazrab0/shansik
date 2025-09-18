@@ -59,21 +59,21 @@ async def leaderboard(
         type = "live"
     url = f"https://api.sekai.best/event/{type}?region={region}"
     if page == 1:
-        n = slice(0, 26)
+        n = slice(0, 25)
     elif page == 2:
-        n = slice(25, 51)
+        n = slice(25, 50)
     elif page == 3:
-        n = slice(50, 76)
+        n = slice(50, 75)
     elif page == 4:
         n = slice(75, 100)
     elif page == 5:
-        n = slice(100, 119)
+        n = slice(100, 118)
     raw = await sget(url)
     json = loads(raw)
     data = json["data"]["eventRankings"]
 
-    board = (tier(data[i]["rank"], data[i]["userName"][:20], data[i]["score"])
-             for i in range(119))
+    board = (tier(data[i]["rank"], data[i]["userName"], data[i]["score"])
+             for i in range(118))
     leaderboard = sorted(board, key=lambda x: x.top)
     result = "```\n" + "".join(f"{i}" for i in leaderboard[n]) + "```"
     await reply(ctx, result)

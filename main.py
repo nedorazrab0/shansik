@@ -67,9 +67,9 @@ async def leaderboard(
     raw = await sget(url)
     json = loads(raw)
     data = json["data"]["eventRankings"]
-    leaderboard = "".join(f"{data[top]['rank']}  {data[top]['userName'][:20]}"
-                          + f"  {data[top]['score']}\n" for top in tops)
-    result = "```\n" + leaderboard + "```"
+    leaderboard = sorted(f"{data[top]['rank']}  {data[top]['userName'][:20]}"
+                   + f"  {data[top]['score']}\n" for top in range(119))
+    result = "```\n" + f"{leaderboard[slice(10)]}" + "```"
     await reply(ctx, result)
 
 @bot.slash_command(description="check is api.sekai.best alive")

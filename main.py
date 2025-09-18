@@ -6,6 +6,7 @@ from string import ascii_letters, digits, punctuation
 from urllib.parse import quote_plus
 from subprocess import check_output
 from random import randint, choice
+from itertools import product
 from datetime import datetime
 from os import environ
 from re import match
@@ -61,12 +62,16 @@ async def leaderboard(
     if page == 1:
         tops = range(0, 51)
     elif page == 2:
-        tops = range(50, 103)
+        tops = range(50, 100)
     raw = await sget(url)
     json = loads(raw)
     data = json["data"]["eventRankings"]
-    leaderboard = "".join(f"{data[top]['rank']}  {data[top]['userName'][:20]}"
-                          + f"  {data[top]['score']}\n" for top in tops)
+    users = product(tops, range(118))
+    leaderboard = ""
+    for user in users[1]:
+        userdata = data[user]
+        if userdata["rank"] == users[0]:
+            leaderboard += f"{userdata['rank']}  '{userdata['userName'][:20]}'  {userdata['score'}]"
     result = "```\n" + leaderboard + "```"
     await reply(ctx, result)
 

@@ -21,7 +21,7 @@ bot = commands.Bot(intents=intents, activity=activity)
 
 @bot.slash_command(description="flip a coin")
 async def coin(ctx):
-    result = choice(["i cant stop winning", "oh dang it"])
+    result = choice(("i cant stop winning", "oh dang it"))
     await reply(ctx, result)
 
 @bot.slash_command(description="russian roulette roll")
@@ -42,7 +42,7 @@ async def pick(ctx, items: str):
     description="teams all 4* 0MR (50% EB) and all 1* 5MR (2% EB), ebi"
 )
 async def park(ctx, target_points):
-    order = check_output(["/usr/bin/python3", "./spc", "-p", target_points])
+    order = check_output(("/usr/bin/python3", "./spc", "-p", target_points))
     result = str(order, "utf-8")
     await reply(ctx, result)
 
@@ -50,8 +50,8 @@ async def park(ctx, target_points):
 async def leaderboard(
     ctx: Interaction,
     page: int = SlashOption(choices=(1, 2, 3), description="page = 50 tiers"),
-    region: str = SlashOption(choices=["en", "kr", "jp", "tw", "cn"]),
-    wl: bool = SlashOption(choices=[True, False]),
+    region: str = SlashOption(choices=("en", "kr", "jp", "tw", "cn")),
+    wl: bool = SlashOption(choices=(True, False)),
 ):
     if wl:
         type = "live_latest_chapter"
@@ -85,7 +85,7 @@ async def api_check(ctx):
 
 @bot.slash_command(description="send random line of anti anti you")
 async def antiyou(ctx):
-    line = check_output(["/usr/bin/python3", "./randomantiyou"])
+    line = check_output(("/usr/bin/python3", "./randomantiyou"))
     result = str(line, "utf-8")
     await reply(ctx, result)
 
@@ -160,12 +160,12 @@ async def timestamp(
 async def timezone(
     ctx: Interaction,
     hour: int,
-    source_zone: int = SlashOption(choices=[-12, -11, -10, -9, -8, -7, -6, -5,
+    source_zone: int = SlashOption(choices=(-12, -11, -10, -9, -8, -7, -6, -5,
                                             -4, -3, -2, -1, 0, 1, 2, 3, 4, 5,
-                                            6, 7, 8, 9, 10, 11, 12]),
-    target_zone: int = SlashOption(choices=[-12, -11, -10, -9, -8, -7, -6, -5,
+                                            6, 7, 8, 9, 10, 11, 12)),
+    target_zone: int = SlashOption(choices=(-12, -11, -10, -9, -8, -7, -6, -5,
                                             -4, -3, -2, -1, 0, 1, 2, 3, 4, 5,
-                                            6, 7, 8, 9, 10, 11, 12])
+                                            6, 7, 8, 9, 10, 11, 12))
 ):
     converted = hour + source_zone + target_zone
     if converted > 24:

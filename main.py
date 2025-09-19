@@ -21,11 +21,13 @@ bot = commands.Bot(intents=intents, activity=activity)
 
 @bot.slash_command(description="flip a coin")
 async def coin(ctx):
+    await dfr(ctx)
     result = choice(("i cant stop winning", "oh dang it"))
     await reply(ctx, result)
 
 @bot.slash_command(description="russian roulette roll")
 async def rule(ctx):
+    await dfr(ctx)
     rand = randint(0, 5)
     if rand == 5:
         result = "ALAH BABAH"
@@ -35,6 +37,7 @@ async def rule(ctx):
 
 @bot.slash_command(description="pick a random item of specified ones")
 async def pick(ctx, items: str):
+    await dfr(ctx)
     result = choice(items.split())
     await reply(ctx, result)
 
@@ -42,6 +45,7 @@ async def pick(ctx, items: str):
     description="teams all 4* 0MR (50% EB) and all 1* 5MR (2% EB), ebi"
 )
 async def park(ctx, target_points):
+    await dfr(ctx)
     order = check_output(("/usr/bin/python3", "./spc", "-p", target_points))
     result = str(order, "utf-8")
     await reply(ctx, result)
@@ -53,7 +57,7 @@ async def leaderboard(
     region: str = SlashOption(choices=("en", "kr", "jp", "tw", "cn")),
     wl: bool = SlashOption(choices=(True, False)),
 ):
-    await ctx.response.defer()
+    await dfr(ctx)
     if wl:
         type = "live_latest_chapter"
     else:
@@ -81,6 +85,7 @@ async def leaderboard(
 
 @bot.slash_command(description="check is api.sekai.best alive")
 async def api_check(ctx):
+    await dfr(ctx)
     url = "https://api.sekai.best/status"
     statusurl = "https://status.sekai.best/history/api"
     raw = sget(url)
@@ -92,22 +97,26 @@ async def api_check(ctx):
 
 @bot.slash_command(description="send random line of anti anti you")
 async def antiyou(ctx):
+    await dfr(ctx)
     line = check_output(("/usr/bin/python3", "./randomantiyou"))
     result = str(line, "utf-8")
     await reply(ctx, result)
 
 @bot.slash_command(description="convert rgb to hex")
 async def hex(ctx, red: int, green: int, blue: int):
+    await dfr(ctx)
     result = "#{:02x}{:02x}{:02x}".format(red, green, blue)
     await reply(ctx, result)
 
 @bot.slash_command(description="get a value for compare isvs")
 async def isv(ctx, leader_skill: int, team_skill: int):
+    await dfr(ctx)
     result = leader_skill*4 + team_skill - 90
     await reply(ctx, result)
 
 @bot.slash_command(description="smert v nishite")
 async def call(ctx):
+    await dfr(ctx)
     maxurl = ("https://raw.githubusercontent.com/nedorazrab0/smert-v-nishite"
               +"/main/max")
     max = await sget(maxurl)
@@ -118,6 +127,7 @@ async def call(ctx):
 
 @bot.slash_command(description="convert hex to r g b")
 async def rgb(ctx, hex: str):
+    await dfr(ctx)
     hex = hex.lstrip("#")
     r = int(hex[0:2], 16)
     g = int(hex[2:4], 16)
@@ -128,6 +138,7 @@ async def rgb(ctx, hex: str):
 
 @bot.slash_command(description="change room code")
 async def rm(ctx, code):
+    await dfr(ctx)
     ch = ctx.channel
     regex = ".[0-9].*-[0-9|x][0-9|x][0-9|x][0-9|x][0-9|x]"
     if match(regex, ch.name):
@@ -174,6 +185,7 @@ async def timezone(
                                             -4, -3, -2, -1, 0, 1, 2, 3, 4, 5,
                                             6, 7, 8, 9, 10, 11, 12))
 ):
+    await dfr(ctx)
     converted = hour + source_zone + target_zone
     if converted > 24:
         result = f"{converted - 24} of the next day"
@@ -185,6 +197,7 @@ async def timezone(
 
 @bot.slash_command(description="convert sizeunits")
 async def sizeconvert(ctx, num: int, sizeunit1, sizeunit2):
+    await dfr(ctx)
     sizeunits = {"bit": 1, "b": 8,
                  "kb": 10**3*8, "mb": 10**6*8, "gb": 10**9*8, "tb": 10**12*8,
                  "kibit": 2**10, "mibit": 2**20, "gibit": 2**30, "tibit": 2**40,
@@ -196,16 +209,19 @@ async def sizeconvert(ctx, num: int, sizeunit1, sizeunit2):
 
 @bot.slash_command(description="get the lenght of text")
 async def ln(ctx, text):
+    await dfr(ctx)
     result = len(text)
     await reply(ctx, result)
 
 @bot.slash_command(description="translate the text")
 async def tra(ctx, text: str, lang: str):
+    await dfr(ctx)
     result = await translate(text, lang)
     await reply(ctx, result)
 
 @bot.slash_command(description="send an extract of random wiki page")
 async def wiki(ctx):
+    await dfr(ctx)
     wikiurl = "https://en.wikipedia.org/w/"
     sekaipediaurl = "https://www.sekaipedia.org/w/"
     opts = ("api.php?format=json&action=query&explaintext&generator=random"
@@ -224,6 +240,7 @@ async def wiki(ctx):
 
 @bot.slash_command(description="calculator")
 async def calculate(ctx, expr):
+    await dfr(ctx)
     if match('[a-zA-Z]', expr):
         result = "do not use any letters"
     else:
@@ -232,12 +249,14 @@ async def calculate(ctx, expr):
 
 @bot.slash_command(description="get the weather in specified location")
 async def weather(ctx, location):
+    await dfr(ctx)
     url = f"https://wttr.in/{location}?format=%t+%C+%uuw+%T&m&lang=ru"
     result = await sget(url)
     await reply(ctx, result)
 
 @bot.slash_command(description="repeat the text n times")
 async def repeat(ctx, repeats: int, text: str):
+    await dfr(ctx)
     if repeats > 2000:
         result = "too many repeats"
     else:
@@ -247,6 +266,7 @@ async def repeat(ctx, repeats: int, text: str):
 
 @bot.slash_command(description="send a random string")
 async def random_str(ctx):
+    await dfr(ctx)
     rand = "".join(choice(ascii_letters + digits + punctuation)
                    for i in range(20))
     result = "```\n" + rand + "\n```"
@@ -254,58 +274,69 @@ async def random_str(ctx):
 
 @bot.slash_command(description="send a random num")
 async def random(ctx, start: int, stop: int):
+    await dfr(ctx)
     result = randint(start, stop)
     await reply(ctx, result)
 
 @bot.slash_command(description="jason pic")
 async def jason(ctx):
+    await dfr(ctx)
     result = "<:jason:1410289021263020144>"
     await reply(ctx, result)
 
 @bot.slash_command(description="taph pic")
 async def taph(ctx):
+    await dfr(ctx)
     result = "<:taph:1410288947619303484>"
     await reply(ctx, result)
 
 @bot.slash_command(description="saki pic")
 async def saki(ctx):
+    await dfr(ctx)
     result = "<:saki:1410288878828388412>"
     await reply(ctx, result)
 
 @bot.slash_command(description="teehee pic")
 async def teehee(ctx):
+    await dfr(ctx)
     result = "<:teehee:1410288750742995078>"
     await reply(ctx, result)
 
 @bot.slash_command(description="patpat pic")
 async def patpat(ctx):
+    await dfr(ctx)
     result = "<a:patpat:1410053978921762867>"
     await reply(ctx, result)
 
 @bot.slash_command(description="kanade pic")
 async def kana(ctx):
+    await dfr(ctx)
     result = "<a:kanade:1410053899859267645>"
     await reply(ctx, result)
 
 @bot.slash_command(description="an pic")
 async def an(ctx):
+    await dfr(ctx)
     result = "<a:an:1410053927759646810>"
     await reply(ctx, result)
 
 @bot.slash_command(description="white pic")
 async def white(ctx):
+    await dfr(ctx)
     result = "<a:white:1410053954494267485>"
     await reply(ctx, result)
 
-@bot.slash_command(description="generate a qr code from text")
+@bot.slash_command(description="generate a qr code from text, 2000 characters max")
 async def qr(ctx, text):
+    await dfr(ctx)
     url = ("https://api.qrserver.com/v1/create-qr-code/?size=512x512"
            + "&format=png&qzone=4&data=" + quote_plus(text, safe=""))
-    result = url
+    result = url[:2000]
     await reply(ctx, result)
 
 @bot.slash_command(description="hug a user <3")
 async def hug(ctx, user: Member):
+    await dfr(ctx)
     url = "https://nekos.life/api/v2/img/hug"
     raw = await sget(url)
     json = loads(raw)
@@ -314,6 +345,7 @@ async def hug(ctx, user: Member):
 
 @bot.slash_command(description="send a random safebooru img")
 async def img(ctx):
+    await dfr(ctx)
     url = ("https://safebooru.org/index.php?page=dapi&s=post&q=index&json=1"
            + "&limit=1&random=true")
     raw = await sget(url)
@@ -324,11 +356,15 @@ async def img(ctx):
 
 @bot.slash_command(description="check is bot alive")
 async def bot_check(ctx):
+    await dfr(ctx)
     result = "goddamn whatsup"
     await reply(ctx, result)
 
 async def reply(ctx, result):
     await ctx.followup.send(result)
+
+async def dfr(ctx):
+    await ctx.response.defer()
 
 class tier:
     def __init__(self, top, name, score):
@@ -353,4 +389,3 @@ async def translate(text, lang):
     return result
 
 bot.run(environ["TOKEN"])
-#todo defer

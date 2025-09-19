@@ -330,11 +330,11 @@ async def white(ctx):
     result = "<a:white:1410053954494267485>"
     await reply(ctx, result)
 
-@bot.slash_command(description="generate a qr code from text, 2000 characters max")
+@bot.slash_command(description="generate a qr code from text, 643 characters max")
 async def qr(ctx, text):
     await dfr(ctx)
-    url = ("https://api.qrserver.com/v1/create-qr-code/?size=512x512"
-           + "&format=png&qzone=4&data=" + quote_plus(text, safe=""))
+    url = ("https://api.qrserver.com/v1/create-qr-code/?size=999x999"
+           + "&qzone=4&data=" + quote_plus(text[:643], safe=""))
     result = url[:2000]
     await reply(ctx, result)
 

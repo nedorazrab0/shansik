@@ -53,7 +53,7 @@ async def leaderboard(
     region: str = SlashOption(choices=("en", "kr", "jp", "tw", "cn")),
     wl: bool = SlashOption(choices=(True, False)),
 ):
-    #await ctx.response.defer()
+    await ctx.response.defer()
     if wl:
         type = "live_latest_chapter"
     else:
@@ -328,7 +328,6 @@ async def bot_check(ctx):
     await reply(ctx, result)
 
 async def reply(ctx, result):
-    await ctx.response.defer()
     await ctx.followup.send(result)
 
 class tier:
@@ -354,3 +353,4 @@ async def translate(text, lang):
     return result
 
 bot.run(environ["TOKEN"])
+#todo defer

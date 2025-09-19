@@ -126,7 +126,7 @@ async def call(ctx):
     max = await sget(maxurl)
     rand = randint(1, int(max))
     result = ("https://raw.githubusercontent.com/nedorazrab0/smert-v-nishite"
-              + f"/main/images/{rand}.webp")
+              f"/main/images/{rand}.webp")
     await reply(ctx, result)
 
 @bot.slash_command(description="convert hex to r g b")
@@ -229,7 +229,7 @@ async def wiki(ctx):
     wikiurl = "https://en.wikipedia.org/w/"
     sekaipediaurl = "https://www.sekaipedia.org/w/"
     opts = ("api.php?format=json&action=query&explaintext&generator=random"
-            + "&grnnamespace=0&prop=extracts&grnlimit=1&exintro&redirects=")
+            "&grnnamespace=0&prop=extracts&grnlimit=1&exintro&redirects=")
     rand = randint(0, 2)
     if rand == 2:
         url = sekaipediaurl + opts + "/en"
@@ -334,7 +334,7 @@ async def white(ctx):
 async def qr(ctx, text):
     await dfr(ctx)
     url = ("https://api.qrserver.com/v1/create-qr-code/?size=999x999"
-           + "&qzone=4&data=" + quote_plus(text[:643], safe=""))
+           "&qzone=4&data=" + quote_plus(text[:643], safe=""))
     result = url[:2000]
     await reply(ctx, result)
 
@@ -351,7 +351,7 @@ async def hug(ctx, user: Member):
 async def img(ctx):
     await dfr(ctx)
     url = ("https://safebooru.org/index.php?page=dapi&s=post&q=index&json=1"
-           + "&limit=1&random=true")
+           "&limit=1&random=true")
     raw = await sget(url)
     json = loads(raw)
     file_url = json[0]["file_url"]
@@ -381,12 +381,12 @@ class tier:
 
     def __str__(self):
         return (f"{self.top} '{self.name[slice(20)]}'"
-                f"{'{0:,}'.format(self.score)}\n")
+                f" {'{0:,}'.format(self.score)}\n")
 
 async def sget(url):
     headers = ({"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-                + "AppleWebKit/537.36 (KHTML, like Gecko)"
-                + "Chrome/100.0.4896.127 Safari/537.36"})
+                " AppleWebKit/537.36 (KHTML, like Gecko)"
+                " Chrome/100.0.4896.127 Safari/537.36"})
     async with ClientSession() as s:
         async with s.get(url, headers=headers) as resp:
             return await resp.text()

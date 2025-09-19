@@ -157,7 +157,7 @@ async def rm(ctx, code):
             await ch.edit(name=new_name)
             result = "room closed, lets go gambling"
     else:
-        result = "the channel name must be like this luka22-12345"
+        result = "the channel name must be like this shurik22-12345"
     await reply(ctx, result)
 
 @bot.slash_command(description="convert UTC to timestamp")
@@ -277,7 +277,7 @@ async def random_str(ctx):
     await reply(ctx, result)
 
 @bot.slash_command(description="send a random num")
-async def random(ctx, start: int, stop: int):
+async def random(ctx, start: int=1, stop: int=100):
     await dfr(ctx)
     result = randint(start, stop)
     await reply(ctx, result)

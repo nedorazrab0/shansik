@@ -241,6 +241,8 @@ async def wiki(ctx):
     id = str(*json["query"]["pages"])
     text = json["query"]["pages"][id]["extract"]
     result = await translate(text, "ru")
+    if result is None:
+        result = "sekai issue"
     await reply(ctx, result)
 
 @bot.slash_command(description="calculator")

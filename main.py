@@ -54,7 +54,7 @@ async def park(ctx, target_points):
 async def leaderboard(
     ctx: Interaction,
     page: int = SlashOption(choices=(1, 2, 3, 4 ,5), description="page = 25 tiers"),
-    region: str = SlashOption(choices=("en", "kr", "jp", "tw")),  # "cn"
+    region: str = SlashOption(choices=("en", "kr", "jp", "tw", "cn")),
     wl: bool = SlashOption(choices=(True, False)),
 ):
     await dfr(ctx)
@@ -75,12 +75,16 @@ async def leaderboard(
         n = slice(100, None)
     raw = await sget(url)
     json = loads(raw)
-    data = json["data"]["eventRankings"]
-
-    board = (tier(data[i]["rank"], data[i]["userName"], data[i]["score"])
-             for i in range(len(data)))
-    leaderboard = sorted(board, key=lambda x: x.top)
-    result = "```\n" + "".join(f"{i}" for i in leaderboard[n]) + "```"
+    if json["status"] == "success":
+        data = json["data"]["eventRankings"]
+        board = (tier(data[i]["rank"], data[i]["userName"], data[i]["score"])
+                 for i in range(len(data)))
+        leaderboard = sorted(board, key=lambda x: x.top)
+        result = "```\n" + "".join(f"{i}" for i in leaderboard[n]) + "```"
+    elif json["message"] == "only world bloom event has chapter rankings":
+        result = "O_o  GODDAMN THERE IS NO WL HERE"
+    else:
+        result = "kitayskaya partiya prikazala umeret"
     await reply(ctx, result)
 
 @bot.slash_command(description="check is api.sekai.best alive")
@@ -90,9 +94,9 @@ async def api_check(ctx):
     statusurl = "https://status.sekai.best/history/api"
     raw = sget(url)
     if raw is None:
-        result = f"[api.sekai.best]({statusurl}) umer"
+        result = f"[api.sekai.best]({statusurl}) umer :("
     else:
-        result = f"[api.sekai.best]({statusurl}) is alive"
+        result = f"[api.sekai.best]({statusurl}) is alive ^^"
     await reply(ctx, result)
 
 @bot.slash_command(description="send random line of anti anti you")

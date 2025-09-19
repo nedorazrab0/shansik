@@ -54,7 +54,7 @@ async def park(ctx, target_points):
 async def leaderboard(
     ctx: Interaction,
     page: int = SlashOption(choices=(1, 2, 3, 4 ,5), description="page = 25 tiers"),
-    region: str = SlashOption(choices=("en", "kr", "jp", "tw", "cn")),
+    region: str = SlashOption(choices=("en", "kr", "jp", "tw")),  # "cn"
     wl: bool = SlashOption(choices=(True, False)),
 ):
     await dfr(ctx)
@@ -361,12 +361,15 @@ async def bot_check(ctx):
     await reply(ctx, result)
 
 async def reply(ctx, result):
+    """Send the result."""
     await ctx.followup.send(result)
 
 async def dfr(ctx):
+    """Do not interrupt command after 3 seconds."""
     await ctx.response.defer()
 
 class tier:
+    """Leaderboard unit."""
     def __init__(self, top, name, score):
         self.top = top
         self.name = name

@@ -173,6 +173,7 @@ async def timestamp(
                                      "f D+t": "f", "F very long": "F",
                                      "R timeleft": "R"})
 ):
+    await dfr(ctx)
     date = datetime(year, month, day, hour, minute, 0)
     timestamp = int(date.timestamp())
     result = f"<t:{timestamp}:{type}>"

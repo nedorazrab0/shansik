@@ -82,7 +82,7 @@ async def leaderboard(
         leaderboard = sorted(board, key=lambda x: x.top)
         result = "```\n" + "".join(f"{i}" for i in leaderboard[n]) + "```"
     elif json["message"] == "only world bloom event has chapter rankings":
-        result = "O_o  GODDAMN THERE IS NO WL HERE"
+        result = "0_o  GODDAMN THERE IS NO WL HERE"
     else:
         result = "kitayskaya partiya prikazala umeret"
     await reply(ctx, result)

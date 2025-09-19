@@ -379,7 +379,7 @@ class tier:
         self.name = name
         self.score = score
 
-    def __repr__(self):
+    def __str__(self):
         return f"{self.top} '{self.name}' {'{0:,}'.format(self.score)}\n"
 
 async def sget(url):

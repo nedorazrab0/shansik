@@ -380,7 +380,8 @@ class tier:
         self.score = score
 
     def __str__(self):
-        return f"{self.top} '{self.name}' {'{0:,}'.format(self.score)}\n"
+        return (f"{self.top} '{self.name[slice(20)]}'"
+                f"{'{0:,}'.format(self.score)}\n")
 
 async def sget(url):
     headers = ({"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"

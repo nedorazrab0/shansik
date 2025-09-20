@@ -113,12 +113,6 @@ async def antiyou(ctx):
     result = str(line, "utf-8")
     await reply(ctx, result)
 
-@bot.slash_command(description="convert rgb to hex")
-async def hex(ctx, red: int, green: int, blue: int):
-    await dfr(ctx)
-    result = "#{:02x}{:02x}{:02x}".format(red, green, blue)
-    await reply(ctx, result)
-
 @bot.slash_command(description="get a value for compare isvs")
 async def isv(ctx, leader_skill: int, team_skill: int):
     await dfr(ctx)
@@ -136,35 +130,22 @@ async def call(ctx):
               f"/main/images/{rand}.webp")
     await reply(ctx, result)
 
-@bot.slash_command(description="convert hex to r g b")
-async def rgb(ctx, hex: str):
-    await dfr(ctx)
-    hex = hex.lstrip("#")
-    if match(r"^[0-9a-fA-F]+$", hex):
-        r = int(hex[0:2], 16)
-        g = int(hex[2:4], 16)
-        b = int(hex[4:6], 16)
-        result = f"{r} {g} {b}"
-    else:
-        result = "ti dibil?"
-    await reply(ctx, result)
-
-@bot.slash_command(description="change room code")
+@bot.slash_command(description="change room code, invalid one = close room")
 async def rm(ctx, code):
     await dfr(ctx)
     ch = ctx.channel
-    regex = ".[0-9].*-[0-9|x][0-9|x][0-9|x][0-9|x][0-9|x]"
+    regex = ".[0-9].*-[0-9|x]{5}$"
     if match(regex, ch.name):
-        matchname = match(".[0-9]-", ch.name)
+        matchname = match(".[0-9].*-", ch.name)
         rmname = matchname[0]
         new_name = rmname + code
         if match(regex, new_name):
             await ch.edit(name=new_name)
-            result = "room code changed"
+            result = f"room code changed to {code}, lets go gambling"
         else:
             new_name = rmname + "xxxxx"
             await ch.edit(name=new_name)
-            result = "room closed, lets go gambling"
+            result = "room closed, " + code
     else:
         result = "the channel name must be like this shurik22-12345"
     await reply(ctx, result)
@@ -203,6 +184,25 @@ async def timezone(
         result = f"{converted + 24} of the previous day"
     else:
         result = f"{converted} of the same day"
+    await reply(ctx, result)
+
+@bot.slash_command(description="convert rgb to hex")
+async def hex(ctx, red: int, green: int, blue: int):
+    await dfr(ctx)
+    result = "#{:02x}{:02x}{:02x}".format(red, green, blue)
+    await reply(ctx, result)
+
+@bot.slash_command(description="convert hex to r g b")
+async def rgb(ctx, hex: str):
+    await dfr(ctx)
+    hex = hex.lstrip("#")
+    if match(r"^[0-9a-fA-F]+$", hex):
+        r = int(hex[0:2], 16)
+        g = int(hex[2:4], 16)
+        b = int(hex[4:6], 16)
+        result = f"{r} {g} {b}"
+    else:
+        result = "ti dibil?"
     await reply(ctx, result)
 
 @bot.slash_command(description="convert sizeunits")

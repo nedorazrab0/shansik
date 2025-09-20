@@ -19,6 +19,13 @@ activity = Game(name="pisun")
 intents = Intents.default()
 bot = commands.Bot(intents=intents, activity=activity)
 
+tzs = [i for i in range(-12, 13)]
+sizeunits = {"kb": 10**3*8, "mb": 10**6*8, "gb": 10**9*8, "tb": 10**12*8,
+             "kib": 2**10*8, "mib": 2**20*8, "gib": 2**30*8, "tib": 2**40*8,
+             "kbit": 10**3, "mbit": 10**6, "gbit": 10**9, "tbit": 10**12,
+             "kibit": 2**10, "mibit": 2**20, "gibit": 2**30, "tibit": 2**40,
+             "byte": 1, "bit": 1}
+
 @bot.slash_command(description="flip a coin")
 async def coin(ctx):
     await dfr(ctx)
@@ -133,11 +140,13 @@ async def call(ctx):
 async def rgb(ctx, hex: str):
     await dfr(ctx)
     hex = hex.lstrip("#")
-    r = int(hex[0:2], 16)
-    g = int(hex[2:4], 16)
-    b = int(hex[4:6], 16)
-
-    result = f"{r} {g} {b}"
+    if match(r"^[0-9a-fA-F]+$", hex):
+        r = int(hex[0:2], 16)
+        g = int(hex[2:4], 16)
+        b = int(hex[4:6], 16)
+        result = f"{r} {g} {b}"
+    else:
+        result = "ti dibil?"
     await reply(ctx, result)
 
 @bot.slash_command(description="change room code")
@@ -183,12 +192,8 @@ async def timestamp(
 async def timezone(
     ctx: Interaction,
     hour: int,
-    source_zone: int = SlashOption(choices=(-12, -11, -10, -9, -8, -7, -6, -5,
-                                            -4, -3, -2, -1, 0, 1, 2, 3, 4, 5,
-                                            6, 7, 8, 9, 10, 11, 12)),
-    target_zone: int = SlashOption(choices=(-12, -11, -10, -9, -8, -7, -6, -5,
-                                            -4, -3, -2, -1, 0, 1, 2, 3, 4, 5,
-                                            6, 7, 8, 9, 10, 11, 12))
+    source_zone: int = SlashOption(choices=tzs),
+    target_zone: int = SlashOption(choices=tzs)
 ):
     await dfr(ctx)
     converted = hour + source_zone + target_zone
@@ -201,14 +206,14 @@ async def timezone(
     await reply(ctx, result)
 
 @bot.slash_command(description="convert sizeunits")
-async def sizeconvert(ctx, num: int, sizeunit1, sizeunit2):
+async def sizeconvert(
+    ctx: Interaction,
+    size: int,
+    sizeunit1: int = SlashOption(choices=sizeunits),
+    sizeunit2: int = SlashOption(choices=sizeunits)
+):
     await dfr(ctx)
-    sizeunits = {"bit": 1, "b": 8,
-                 "kb": 10**3*8, "mb": 10**6*8, "gb": 10**9*8, "tb": 10**12*8,
-                 "kibit": 2**10, "mibit": 2**20, "gibit": 2**30, "tibit": 2**40,
-                 "kbit": 10**3, "mbit": 10**6, "gbit": 10**9, "tbit": 10**12,
-                 "kib": 2**10*8, "mib": 2**20*8, "gib": 2**30*8, "tib": 2**40*8}
-    converted = (num*sizeunits[sizeunit1])/sizeunits[sizeunit2]
+    converted = (size*sizeunits[sizeunit1])/sizeunits[sizeunit2]
     result = round(converted, 1)
     await reply(ctx, result)
 

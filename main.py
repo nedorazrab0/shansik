@@ -192,7 +192,7 @@ async def hex(ctx, red: int, green: int, blue: int):
     result = "#{:02x}{:02x}{:02x}".format(red, green, blue)
     await reply(ctx, result)
 
-@bot.slash_command(description="convert hex to r g b")
+@bot.slash_command(description="convert hex to r g b  #33ccbb")
 async def rgb(ctx, hex: str):
     await dfr(ctx)
     hex = hex.lstrip("#")
@@ -213,7 +213,7 @@ async def sizeconvert(
     sizeunit2: int = SlashOption(choices=sizeunits)
 ):
     await dfr(ctx)
-    converted = (size*sizeunits[sizeunit1])/sizeunits[sizeunit2]
+    converted = (size*sizeunit1)/sizeunit2
     result = round(converted, 1)
     await reply(ctx, result)
 

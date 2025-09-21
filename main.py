@@ -120,13 +120,14 @@ async def isv(ctx, leader_skill: int, team_skill: int):
     await reply(ctx, result)
 
 @bot.slash_command(description="smert v nishite")
-async def call(ctx):
+async def call(ctx, id: int=0):
     await dfr(ctx)
     maxurl = ("https://raw.githubusercontent.com/nedorazrab0/smert-v-nishite"
               "/main/max")
-    max = await sget(maxurl)
-    id = randint(1, int(max))
-    if 1 <= id <= max:
+    max = int(await sget(maxurl))
+    if id == 0:
+      id = randint(1, max)
+    elif 1 <= id <= max:
         result = ("https://raw.githubusercontent.com/nedorazrab0/smert-v-nishite"
                   f"/main/images/{id}.webp")
     else:

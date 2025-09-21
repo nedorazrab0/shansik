@@ -126,12 +126,13 @@ async def call(ctx, id: int=0):
               "/main/max")
     max = int(await sget(maxurl))
     if id == 0:
-      id = randint(1, max)
+        id = randint(1, max)
     elif 1 <= id <= max:
-        result = ("https://raw.githubusercontent.com/nedorazrab0/smert-v-nishite"
-                  f"/main/images/{id}.webp")
+        pass
     else:
-        result = "smert ot terrorizma"
+        id = 69
+    result = ("https://raw.githubusercontent.com/nedorazrab0/smert-v-nishite"
+                  f"/main/images/{id}.webp")
     await reply(ctx, result)
 
 @bot.slash_command(description="change room code, invalid one = close room")

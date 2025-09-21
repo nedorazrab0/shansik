@@ -123,11 +123,14 @@ async def isv(ctx, leader_skill: int, team_skill: int):
 async def call(ctx):
     await dfr(ctx)
     maxurl = ("https://raw.githubusercontent.com/nedorazrab0/smert-v-nishite"
-              +"/main/max")
+              "/main/max")
     max = await sget(maxurl)
-    rand = randint(1, int(max))
-    result = ("https://raw.githubusercontent.com/nedorazrab0/smert-v-nishite"
-              f"/main/images/{rand}.webp")
+    id = randint(1, int(max))
+    if 1 <= id <= max:
+        result = ("https://raw.githubusercontent.com/nedorazrab0/smert-v-nishite"
+                  f"/main/images/{id}.webp")
+    else:
+        result = "smert ot terrorizma"
     await reply(ctx, result)
 
 @bot.slash_command(description="change room code, invalid one = close room")

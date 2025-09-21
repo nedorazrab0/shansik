@@ -24,7 +24,7 @@ sizeunits = {"kb": 10**3*8, "mb": 10**6*8, "gb": 10**9*8, "tb": 10**12*8,
              "kib": 2**10*8, "mib": 2**20*8, "gib": 2**30*8, "tib": 2**40*8,
              "kbit": 10**3, "mbit": 10**6, "gbit": 10**9, "tbit": 10**12,
              "kibit": 2**10, "mibit": 2**20, "gibit": 2**30, "tibit": 2**40,
-             "byte": 1, "bit": 1}
+             "byte": 8, "bit": 1}
 
 @bot.slash_command(description="flip a coin")
 async def coin(ctx):

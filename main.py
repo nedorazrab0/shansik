@@ -380,7 +380,7 @@ async def bot_check(ctx):
 async def reply(ctx, result):
     """Send the result, log the command."""
     await ctx.followup.send(result)
-    channel = client.get_channel(environ["LOG_CHAN_ID"])
+    channel = bot.get_channel(environ["LOG_CHAN_ID"])
     try:
         await channel.send(ctx.command)
     except Exception:

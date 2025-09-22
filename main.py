@@ -378,13 +378,8 @@ async def bot_check(ctx):
     await reply(ctx, result)
 
 async def reply(ctx, result):
-    """Send the result, log the command."""
+    """Send the result."""
     await ctx.followup.send(result)
-    channel = bot.get_channel(environ["LOG_CHAN_ID"])
-    try:
-        await channel.send(ctx.command)
-    except Exception:
-        pass
 
 async def dfr(ctx):
     """Do not interrupt command after 3 seconds."""

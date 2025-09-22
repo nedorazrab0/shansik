@@ -19,7 +19,7 @@ activity = Game(name="pisun")
 intents = Intents.default()
 bot = commands.Bot(intents=intents, activity=activity)
 
-tzs = [i for i in range(-12, 13)]
+tzs = tuple(i for i in range(-12, 13))
 sizeunits = {"kb": 10**3*8, "mb": 10**6*8, "gb": 10**9*8, "tb": 10**12*8,
              "kib": 2**10*8, "mib": 2**20*8, "gib": 2**30*8, "tib": 2**40*8,
              "kbit": 10**3, "mbit": 10**6, "gbit": 10**9, "tbit": 10**12,
@@ -378,8 +378,13 @@ async def bot_check(ctx):
     await reply(ctx, result)
 
 async def reply(ctx, result):
-    """Send the result."""
+    """Send the result, log the command."""
     await ctx.followup.send(result)
+    channel = client.get_channel(environ["LOG_CHAN_ID"])
+    try:
+        await channel.send(ctx.command)
+    except Exception:
+        pass
 
 async def dfr(ctx):
     """Do not interrupt command after 3 seconds."""

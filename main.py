@@ -82,8 +82,8 @@ async def leaderboard(
         n = slice(100, None)
     raw = await sget(url)
     json = loads(raw)
-    if json["status"] == "success":
-        data = json["data"]["eventRankings"]
+    data = json["data"]["eventRankings"]
+    if data:
         board = (tier(data[i]["rank"], data[i]["userName"], data[i]["score"])
                  for i in range(len(data)))
         leaderboard = sorted(board, key=lambda x: x.top)
@@ -91,7 +91,7 @@ async def leaderboard(
     elif json["message"] == "only world bloom event has chapter rankings":
         result = "0_o  GODDAMN THERE IS NO WL HERE"
     else:
-        result = "kitayskaya partiya prikazala umeret"
+        result = "sekai.best prikazal umeret"
     await reply(ctx, result)
 
 @bot.slash_command(description="check is api.sekai.best alive")

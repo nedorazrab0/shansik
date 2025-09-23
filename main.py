@@ -82,12 +82,15 @@ async def leaderboard(
         n = slice(100, None)
     raw = await sget(url)
     json = loads(raw)
-    data = json["data"]["eventRankings"]
-    if data:
-        board = (tier(data[i]["rank"], data[i]["userName"], data[i]["score"])
-                 for i in range(len(data)))
-        leaderboard = sorted(board, key=lambda x: x.top)
-        result = "```\n" + "".join(f"{i}" for i in leaderboard[n]) + "```"
+    if json["status"] == "success":
+        data = json["data"]["eventRankings"]
+        if data:
+            board = (tier(data[i]["rank"], data[i]["userName"], data[i]["score"])
+                     for i in range(len(data)))
+            leaderboard = sorted(board, key=lambda x: x.top)
+            result = "```\n" + "".join(f"{i}" for i in leaderboard[n]) + "```"
+        else:
+            result = "sekai.best prikazal umeret"
     elif json["message"] == "only world bloom event has chapter rankings":
         result = "0_o  GODDAMN THERE IS NO WL HERE"
     else:

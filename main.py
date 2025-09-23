@@ -15,7 +15,7 @@ from gpytranslate import Translator
 from aiohttp import ClientSession
 from orjson import loads
 
-activity = Game(name="S DNYUHAI MELINDAA")
+activity = Game(name="pisun")
 intents = Intents.default()
 bot = commands.Bot(intents=intents, activity=activity)
 
